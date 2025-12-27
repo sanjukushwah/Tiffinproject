@@ -1,0 +1,512 @@
+<div class="max-w-7xl mx-auto px-6 py-10">
+  <!-- City Selection Buttons -->
+  <div class="flex flex-wrap justify-center gap-4 mb-12">
+    <button
+      onclick="showCity('brampton')"
+      class="city-btn px-3 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+    >
+      Brampton
+    </button>
+    <button
+      onclick="showCity('toronto')"
+      class="city-btn px-3 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+    >
+      Toronto
+    </button>
+    <button
+      onclick="showCity('etobicoke')"
+      class="city-btn px-3 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+    >
+      Etobicoke
+    </button>
+    <button
+      onclick="showCity('mississauga')"
+      class="city-btn px-3 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+    >
+      Mississauga
+    </button>
+    <button
+      onclick="showCity('oakville')"
+      class="city-btn px-3 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+    >
+      Oakville
+    </button>
+    <button
+      onclick="showCity('scarborough')"
+      class="city-btn px-3 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+    >
+      Scarborough
+    </button>
+    <button
+      onclick="showCity('northyork')"
+      class="city-btn px-3 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+    >
+      North York
+    </button>
+    <button
+      onclick="showCity('eastyork')"
+      class="city-btn px-3 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+    >
+      East York
+    </button>
+  </div>
+
+  <!-- City Name Display -->
+  <h2
+    id="cityName"
+    class="hidden text-3xl font-bold text-center text-green-600 mb-8"
+  ></h2>
+
+  <!-- Plans Container -->
+  <div id="plansContainer" class="space-y-8">
+    <!-- Plans will be inserted here -->
+  </div>
+</div>
+
+<script>
+  const cityPlans = {
+    brampton: {
+      name: "Brampton",
+      trial: {
+        title: "Trial Meal (1 Tiffin)",
+        prices: [
+          { size: "8oz", price: "$13" },
+          { size: "12oz", price: "$15" },
+          { size: "16oz", price: "$20" },
+          { size: "24oz", price: "$22" },
+        ],
+      },
+      weekly: {
+        title: "Weekly Plans (6 Tiffins)",
+        prices: [
+          { size: "8oz", price: "$75" },
+          { size: "12oz", price: "$80" },
+          { size: "16oz", price: "$90" },
+          { size: "24oz", price: "$95" },
+        ],
+      },
+      veg: {
+        title: "Monthly Veg Plan (24 Tiffins / 20 Tiffins)",
+        prices: [
+          { size: "8oz", price: "$230", fiveDay: "$215" },
+          { size: "12oz", price: "$250", fiveDay: "$230" },
+          { size: "16oz", price: "$290", fiveDay: "$270" },
+          { size: "24oz", price: "$310", fiveDay: "$290" },
+        ],
+      },
+      hybrid: {
+        title: "Monthly Hybrid Plan (Veg + Non-Veg)",
+        subtitle: "Add $20/month for Daily Non-Veg",
+        prices: [
+          { size: "8oz", price: "$250", fiveDay: "$230" },
+          { size: "12oz", price: "$275", fiveDay: "$255" },
+          { size: "16oz", price: "$310", fiveDay: "$290" },
+          { size: "24oz", price: "$330", fiveDay: "$310" },
+        ],
+      },
+    },
+    toronto: {
+      name: "Toronto",
+      note: "Add $20 for a month",
+      trial: {
+        title: "Trial Meal (1 Tiffin)",
+        prices: [
+          { size: "8oz", price: "$13" },
+          { size: "12oz", price: "$15" },
+          { size: "16oz", price: "$20" },
+          { size: "24oz", price: "$22" },
+        ],
+      },
+      weekly: {
+        title: "Weekly Plans (6 Tiffins)",
+        prices: [
+          { size: "8oz", price: "$75" },
+          { size: "12oz", price: "$80" },
+          { size: "16oz", price: "$90" },
+          { size: "24oz", price: "$95" },
+        ],
+      },
+      veg: {
+        title: "Monthly Veg Plan",
+        prices: [
+          { size: "8oz", price: "$240", fiveDay: "$225" },
+          { size: "12oz", price: "$260", fiveDay: "$240" },
+          { size: "16oz", price: "$300", fiveDay: "$280" },
+          { size: "24oz", price: "$320", fiveDay: "$300" },
+        ],
+      },
+      nonveg: {
+        title: "Monthly Non-Veg Plan",
+        subtitle: "Add $20/month for Daily Non-Veg",
+        prices: [
+          { size: "8oz", price: "$260", fiveDay: "$240" },
+          { size: "12oz", price: "$285", fiveDay: "$265" },
+          { size: "16oz", price: "$320", fiveDay: "$300" },
+          { size: "24oz", price: "$350", fiveDay: "$330" },
+        ],
+      },
+    },
+    etobicoke: {
+      name: "Etobicoke",
+      trial: {
+        title: "Trial Meal (1 Tiffin)",
+        prices: [
+          { size: "8oz", price: "$13" },
+          { size: "12oz", price: "$15" },
+          { size: "16oz", price: "$20" },
+          { size: "24oz", price: "$22" },
+        ],
+      },
+      weekly: {
+        title: "Weekly Plans (6 Tiffins)",
+        prices: [
+          { size: "8oz", price: "$75" },
+          { size: "12oz", price: "$80" },
+          { size: "16oz", price: "$90" },
+          { size: "24oz", price: "$95" },
+        ],
+      },
+      veg: {
+        title: "Monthly Veg Plan",
+        prices: [
+          { size: "8oz", price: "$240", fiveDay: "$225" },
+          { size: "12oz", price: "$260", fiveDay: "$240" },
+          { size: "16oz", price: "$300", fiveDay: "$280" },
+          { size: "24oz", price: "$320", fiveDay: "$300" },
+        ],
+      },
+      nonveg: {
+        title: "Monthly Non-Veg Plan",
+        subtitle: "Add $20/month for Daily Non-Veg",
+        prices: [
+          { size: "8oz", price: "$260", fiveDay: "$240" },
+          { size: "12oz", price: "$285", fiveDay: "$265" },
+          { size: "16oz", price: "$320", fiveDay: "$300" },
+          { size: "24oz", price: "$350", fiveDay: "$330" },
+        ],
+      },
+    },
+    mississauga: {
+      name: "Mississauga",
+      trial: {
+        title: "Trial Meal (1 Tiffin)",
+        prices: [
+          { size: "8oz", price: "$13" },
+          { size: "12oz", price: "$15" },
+          { size: "16oz", price: "$20" },
+          { size: "24oz", price: "$22" },
+        ],
+      },
+      weekly: {
+        title: "Weekly Plans (6 Tiffins)",
+        prices: [
+          { size: "8oz", price: "$75" },
+          { size: "12oz", price: "$80" },
+          { size: "16oz", price: "$90" },
+          { size: "24oz", price: "$95" },
+        ],
+      },
+      veg: {
+        title: "Monthly Veg Plan",
+        prices: [
+          { size: "8oz", price: "$240", fiveDay: "$225" },
+          { size: "12oz", price: "$260", fiveDay: "$240" },
+          { size: "16oz", price: "$300", fiveDay: "$280" },
+          { size: "24oz", price: "$320", fiveDay: "$300" },
+        ],
+      },
+      nonveg: {
+        title: "Monthly Non-Veg Plan",
+        subtitle: "Add $20/month for Daily Non-Veg",
+        prices: [
+          { size: "8oz", price: "$260", fiveDay: "$240" },
+          { size: "12oz", price: "$285", fiveDay: "$265" },
+          { size: "16oz", price: "$320", fiveDay: "$300" },
+          { size: "24oz", price: "$350", fiveDay: "$330" },
+        ],
+      },
+    },
+    oakville: {
+      name: "Oakville",
+      note: "Monday to Friday delivery only (20 Tiffins/month)",
+      trial: {
+        title: "Trial Meal (1 Tiffin)",
+        prices: [
+          { size: "8oz", price: "$13" },
+          { size: "12oz", price: "$15" },
+          { size: "16oz", price: "$20" },
+          { size: "24oz", price: "$22" },
+        ],
+      },
+      weekly: {
+        title: "Weekly Plans (6 Tiffins)",
+        prices: [
+          { size: "8oz", price: "$75" },
+          { size: "12oz", price: "$80" },
+          { size: "16oz", price: "$90" },
+          { size: "24oz", price: "$95" },
+        ],
+      },
+      veg: {
+        title: "Monthly Veg Plan",
+        prices: [
+          { size: "8oz", price: "$240" },
+          { size: "12oz", price: "$260" },
+          { size: "16oz", price: "$300" },
+          { size: "24oz", price: "$320" },
+        ],
+      },
+      nonveg: {
+        title: "Monthly Non-Veg Plan",
+        subtitle: "Add $20/month for Daily Non-Veg",
+        prices: [
+          { size: "8oz", price: "$260" },
+          { size: "12oz", price: "$285" },
+          { size: "16oz", price: "$320" },
+          { size: "24oz", price: "$350" },
+        ],
+      },
+    },
+    scarborough: {
+      name: "Scarborough",
+      trial: {
+        title: "Trial Meal (1 Tiffin)",
+        prices: [
+          { size: "8oz", price: "$13" },
+          { size: "12oz", price: "$15" },
+          { size: "16oz", price: "$20" },
+          { size: "24oz", price: "$22" },
+        ],
+      },
+      weekly: {
+        title: "Weekly Plans (6 Tiffins)",
+        prices: [
+          { size: "8oz", price: "$75" },
+          { size: "12oz", price: "$80" },
+          { size: "16oz", price: "$90" },
+          { size: "24oz", price: "$95" },
+        ],
+      },
+      veg: {
+        title: "Monthly Veg Plan",
+        prices: [
+          { size: "8oz", price: "$240", fiveDay: "$225" },
+          { size: "12oz", price: "$260", fiveDay: "$240" },
+          { size: "16oz", price: "$300", fiveDay: "$280" },
+          { size: "24oz", price: "$320", fiveDay: "$300" },
+        ],
+      },
+      nonveg: {
+        title: "Monthly Non-Veg Plan",
+        subtitle: "Add $20/month for Daily Non-Veg",
+        prices: [
+          { size: "8oz", price: "$260", fiveDay: "$240" },
+          { size: "12oz", price: "$285", fiveDay: "$265" },
+          { size: "16oz", price: "$320", fiveDay: "$300" },
+          { size: "24oz", price: "$350", fiveDay: "$330" },
+        ],
+      },
+    },
+    northyork: {
+      name: "North York",
+      trial: {
+        title: "Trial Meal (1 Tiffin)",
+        prices: [
+          { size: "8oz", price: "$13" },
+          { size: "12oz", price: "$15" },
+          { size: "16oz", price: "$20" },
+          { size: "24oz", price: "$22" },
+        ],
+      },
+      weekly: {
+        title: "Weekly Plans (6 Tiffins)",
+        prices: [
+          { size: "8oz", price: "$75" },
+          { size: "12oz", price: "$80" },
+          { size: "16oz", price: "$90" },
+          { size: "24oz", price: "$95" },
+        ],
+      },
+      veg: {
+        title: "Monthly Veg Plan",
+        prices: [
+          { size: "8oz", price: "$240", fiveDay: "$225" },
+          { size: "12oz", price: "$260", fiveDay: "$240" },
+          { size: "16oz", price: "$300", fiveDay: "$280" },
+          { size: "24oz", price: "$320", fiveDay: "$300" },
+        ],
+      },
+      nonveg: {
+        title: "Monthly Non-Veg Plan",
+        subtitle: "Add $20/month for Daily Non-Veg",
+        prices: [
+          { size: "8oz", price: "$260", fiveDay: "$240" },
+          { size: "12oz", price: "$285", fiveDay: "$265" },
+          { size: "16oz", price: "$320", fiveDay: "$300" },
+          { size: "24oz", price: "$350", fiveDay: "$330" },
+        ],
+      },
+    },
+    eastyork: {
+      name: "East York",
+      note: "Add $20 for a month",
+      trial: {
+        title: "Trial Meal (1 Tiffin)",
+        prices: [
+          { size: "8oz", price: "$13" },
+          { size: "12oz", price: "$15" },
+          { size: "16oz", price: "$20" },
+          { size: "24oz", price: "$22" },
+        ],
+      },
+      weekly: {
+        title: "Weekly Plans (6 Tiffins)",
+        prices: [
+          { size: "8oz", price: "$75" },
+          { size: "12oz", price: "$80" },
+          { size: "16oz", price: "$90" },
+          { size: "24oz", price: "$95" },
+        ],
+      },
+      veg: {
+        title: "Monthly Veg Plan",
+        prices: [
+          { size: "8oz", price: "$240", fiveDay: "$225" },
+          { size: "12oz", price: "$260", fiveDay: "$240" },
+          { size: "16oz", price: "$300", fiveDay: "$280" },
+          { size: "24oz", price: "$320", fiveDay: "$300" },
+        ],
+      },
+      nonveg: {
+        title: "Monthly Non-Veg Plan",
+        subtitle: "Add $20/month for Daily Non-Veg",
+        prices: [
+          { size: "8oz", price: "$260", fiveDay: "$240" },
+          { size: "12oz", price: "$285", fiveDay: "$265" },
+          { size: "16oz", price: "$320", fiveDay: "$300" },
+          { size: "24oz", price: "$350", fiveDay: "$330" },
+        ],
+      },
+    },
+  };
+
+  function createPlanCard(plan, color) {
+    const borderColor =
+      color === "green"
+        ? "border-green-300"
+        : color === "red"
+        ? "border-red-300"
+        : "border-orange-300";
+    const bgColor =
+      color === "green"
+        ? "bg-green-50"
+        : color === "red"
+        ? "bg-red-50"
+        : "bg-orange-50";
+    const textColor =
+      color === "green"
+        ? "text-green-600"
+        : color === "red"
+        ? "text-red-600"
+        : "text-orange-600";
+
+    let html = `
+                <div class="bg-white rounded-lg shadow-md p-6 ${borderColor} border-2">
+                    <h3 class="text-2xl font-semibold ${textColor} mb-2">${
+      plan.title
+    }</h3>
+                    ${
+                      plan.subtitle
+                        ? `<p class="text-sm text-gray-600 mb-4">${plan.subtitle}</p>`
+                        : ""
+                    }
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            `;
+
+    plan.prices.forEach((item) => {
+      html += `
+                    <div class="border ${borderColor} rounded p-4 text-center ${bgColor}">
+                        <p class="text-sm text-gray-600 mb-2">${item.size}</p>
+                        <p class="text-xl font-bold ${textColor}">${
+        item.price
+      }</p>
+                        ${
+                          item.fiveDay
+                            ? `<p class="text-sm ${textColor} mt-1">${item.fiveDay} (5 Days)</p>`
+                            : ""
+                        }
+                    </div>
+                `;
+    });
+
+    html += `
+                    </div>
+                </div>
+            `;
+
+    return html;
+  }
+
+  function showCity(city) {
+    const cityData = cityPlans[city];
+    const container = document.getElementById("plansContainer");
+
+    // Update city name
+    document.getElementById("cityName").textContent = cityData.name;
+
+    // Update active button
+    document.querySelectorAll(".city-btn").forEach((btn) => {
+      btn.classList.remove("bg-green-500", "text-white", "border-green-500");
+      btn.classList.add("bg-white", "border-gray-300");
+    });
+    event.target.classList.remove("bg-white", "border-gray-300");
+    event.target.classList.add(
+      "bg-green-500",
+      "text-white",
+      "border-green-500"
+    );
+
+    // Build plans HTML
+    let html = "";
+
+    // Add city note if exists
+    if (cityData.note) {
+      html += `
+                    <div class="bg-blue-50 border border-blue-300 rounded-lg p-4 text-center mb-6">
+                        <p class="text-blue-800 font-semibold">${cityData.note}</p>
+                    </div>
+                `;
+    }
+
+    // Trial Plan
+    html += createPlanCard(cityData.trial, "green");
+
+    // Weekly Plan
+    html += createPlanCard(cityData.weekly, "green");
+
+    // Veg Plan
+    if (cityData.veg) {
+      html += createPlanCard(cityData.veg, "green");
+    }
+
+    // Non-Veg Plan
+    if (cityData.nonveg) {
+      html += createPlanCard(cityData.nonveg, "red");
+    }
+
+    // Hybrid Plan
+    if (cityData.hybrid) {
+      html += createPlanCard(cityData.hybrid, "orange");
+    }
+
+    container.innerHTML = html;
+
+    // Smooth scroll to plans
+    container.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  // Show Brampton by default
+  window.onload = function () {
+    showCity("brampton");
+  };
+</script>

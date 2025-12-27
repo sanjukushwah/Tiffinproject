@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body class="bg-white">
+    <!-- header section -->
+    <header
+      x-data="{ open: false }"
+      class="sticky top-0 z-50 bg-white shadow-md"
+    >
+      <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+          <!-- Left: Logo -->
+          <div class="text-2xl font-bold">
+            <img
+              src="images/logo.jpeg"
+              class="h-20 rounded-md"
+              alt="logo image"
+            />
+          </div>
+
+          <!-- desktop menu-->
+          <div class="hidden md:flex items-center gap-3">
+            <!-- LOGGED-OUT LOGIN/SIGNUP BUTTONS -->
+            <ul class="hidden lg:flex space-x-8 font-semibold text-gray-900">
+              <li>
+                <a href="index.html">HOME</a>
+              </li>
+              <li><a href="AboutUs.html">ABOUT US</a></li>
+              <li><a href="MealPlan.html">MEAL PLANS</a></li>
+              <li><a href="Services.html">SERVICES</a></li>
+              <li><a href="Gallery.html">GALLERY</a></li>
+              <li><a href="Blog.html">BLOG</a></li>
+              <li><a href="ContactUs.html">CONTACT US</a></li>
+            </ul>
+          </div>
+          <div class="hidden lg:flex space-x-4">
+            <button
+              id="openLoginBtn"
+              class="bg-green-500 text-white font-semibold px-6 py-3 rounded-full"
+            >
+              Login
+            </button>
+            <button
+              id="openModalBtn"
+              class="bg-green-500 text-white font-semibold px-6 py-3 rounded-full"
+            >
+              Signup
+            </button>
+          </div>
+          <!-- Mobile Hamburger -->
+          <button
+            class="lg:hidden text-black focus:outline-none"
+            @click="open = !open"
+          >
+            <!-- Mobile Menu Button Icon -->
+            <svg
+              x-show="!open"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+
+            <!-- Close Icon -->
+            <svg
+              x-show="open"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div
+        x-show="open"
+        x-transition
+        class="md:hidden bg-white border-t border-gray-300 shadow-lg px-4 py-3 space-y-3"
+      >
+        <!-- Links -->
+        <nav class="flex flex-col space-y-4 text-black font-medium">
+          <ul class="font-bold text-black mb-4">
+            <li class="mb-3"><a href="AboutUs.html">ABOUT US</a></li>
+            <li class="mb-3"><a href="MealPlan.html">MEAL PLANS</a></li>
+            <li class="mb-3"><a href="Services.html">SERVICES</a></li>
+            <li class="mb-3"><a href="Gallery.html">GALLERY</a></li>
+            <li class="mb-3"><a href="Blog.html">BLOG</a></li>
+            <li class=""><a href="ContactUs.html">CONTACT US</a></li>
+          </ul>
+        </nav>
+        <div class="flex items-center gap-2">
+          <button
+            id="openLoginBtn"
+            class="flex-1 bg-green-500 border border-black rounded-full px-4 py-2 font-medium"
+          >
+            Login
+          </button>
+          <button
+            id="openModalBtn"
+            class="flex-1 bg-green-500 border border-black rounded-full px-4 py-2 font-medium"
+          >
+            Signup
+          </button>
+        </div>
+      </div>
+      <!-- login Modal -->
+      <div
+        id="loginModal"
+        class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      >
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-md relative p-6">
+          <!-- Close button -->
+          <button
+            id="closeLoginBtn"
+            class="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl"
+          >
+            ✕
+          </button>
+
+          <!-- Title -->
+          <!-- <h2 class="text-2xl text-center font-bold mb-2">Log In</h2> -->
+          <p class="text-3xl font-bold mb-4 text-center">
+            Welcome to Spicyfeast
+          </p>
+          <!-- <p class="text-sm text-gray-600 mb-6">
+            Please confirm your country code and enter your phone number.
+          </p> -->
+
+          <!-- Form -->
+          <form class="space-y-4">
+            <!--Email -->
+
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+
+            <!-- Password -->
+            <input
+              type="password"
+              placeholder="Password"
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+
+            <!-- Login Button -->
+            <button
+              type="submit"
+              class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 disabled:opacity-50"
+            >
+              Login
+            </button>
+            <!-- Google Button -->
+            <button
+              type="button"
+              class="w-full flex items-center justify-center gap-2 border rounded-xl py-3 hover:bg-gray-50 transition cursor-pointer"
+            >
+              <img
+                src="https://www.svgrepo.com/show/355037/google.svg"
+                alt="Google"
+                class="w-5 h-5"
+              />
+              <span class="font-medium">Continue with google</span>
+            </button>
+          </form>
+
+          <!-- Reset Password -->
+          <div class="mt-4 text-center">
+            <a href="#" class="text-teal-600 font-medium hover:underline"
+              >Reset Password</a
+            >
+          </div>
+
+          <!-- Divider -->
+          <div class="flex items-center my-4">
+            <div class="flex-1 h-px bg-gray-300"></div>
+            <span class="px-2 text-gray-500 text-sm">or</span>
+            <div class="flex-1 h-px bg-gray-300"></div>
+          </div>
+
+          <!-- Login with OTP -->
+          <!-- <button
+            class="w-full border bg-yellow-400 border-gray-400 text-black py-2 rounded-lg hover:bg-gray-100"
+          >
+            Login with OTP
+          </button> -->
+
+          <!-- Footer -->
+          <p class="text-sm text-center mt-4">
+            Don’t Have An Account?
+            <a href="#" class="text-teal-600 font-medium hover:underline"
+              >Sign Up</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <script>
+        const loginModal = document.getElementById("loginModal");
+        const openLoginBtn = document.getElementById("openLoginBtn");
+        const closeLoginBtn = document.getElementById("closeLoginBtn");
+
+        openLoginBtn.addEventListener("click", () => {
+          loginModal.classList.remove("hidden");
+        });
+
+        closeLoginBtn.addEventListener("click", () => {
+          loginModal.classList.add("hidden");
+        });
+
+        // Close when clicking outside modal
+        loginModal.addEventListener("click", (e) => {
+          if (e.target === loginModal) {
+            loginModal.classList.add("hidden");
+          }
+        });
+      </script>
+
+      <!--signup Modal -->
+      <div
+        id="signupModal"
+        class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      >
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-md relative p-6">
+          <!-- Close button -->
+          <button
+            id="closeModalBtn"
+            class="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl"
+          >
+            ✕
+          </button>
+
+          <!-- Modal Content -->
+          <!-- <h2 class="text-2xl font-semibold mb-6">Sign Up</h2> -->
+          <p class="text-3xl font-bold mb-4 text-center">Create an Account</p>
+
+          <form class="space-y-4">
+            <!-- First Name -->
+            <input
+              type="text"
+              placeholder="First name"
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+
+            <!-- Last Name -->
+            <input
+              type="text"
+              placeholder="Last name"
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+
+            <!-- --Email -->
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+
+            <!-- Password -->
+            <input
+              type="password"
+              placeholder="Password"
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 disabled:opacity-50"
+            >
+              Sign Up
+            </button>
+            <!-- Google Button -->
+            <button
+              type="button"
+              class="w-full flex items-center justify-center gap-2 border rounded-xl py-3 hover:bg-gray-50 transition cursor-pointer"
+            >
+              <img
+                src="https://www.svgrepo.com/show/355037/google.svg"
+                alt="Google"
+                class="w-5 h-5"
+              />
+              <span class="font-medium">Continue with google</span>
+            </button>
+          </form>
+
+          <!-- Footer -->
+          <p class="text-xs text-gray-500 mt-4 text-center">
+            By continuing you agree to our Terms of Services & Privacy Policy
+          </p>
+
+          <p class="text-sm text-center mt-3">
+            Have An Account?
+            <a href="#" class="text-teal-600 font-medium hover:underline"
+              >Login</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <script>
+        const modal = document.getElementById("signupModal");
+        const openBtn = document.getElementById("openModalBtn");
+        const closeBtn = document.getElementById("closeModalBtn");
+
+        openBtn.addEventListener("click", () => {
+          modal.classList.remove("hidden");
+        });
+
+        closeBtn.addEventListener("click", () => {
+          modal.classList.add("hidden");
+        });
+
+        // Close when clicking outside modal
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            modal.classList.add("hidden");
+          }
+        });
+      </script>
+    </header>
+    <!-- end header section -->
+    <script>
+      document.getElementById("menu-btn").addEventListener("click", () => {
+        document.getElementById("mobile-menu").classList.toggle("hidden");
+      });
+    </script>
+
+    <!-- =================== HERO BANNER =================== -->
+    <section class="relative h-[380px] md:h-[450px] w-full">
+      <img
+        src="/images/Mask-group-2.jpg"
+        class="absolute inset-0 w-full h-full object-cover"
+        alt="Background"
+      />
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+
+      <!-- Content -->
+      <div
+        class="relative z-10 flex flex-col justify-center items-center h-full text-center text-white px-6"
+      >
+        <h1 class="text-3xl md:text-4xl font-semibold">Meal Plans</h1>
+
+        <p class="mt-3 text-lg">
+          Home <span class="mx-2 text-gray-300">/</span> Meal Plans
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-green-600 text-white py-5 px-6 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">Our Meal Plans</h1>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto">
+        Choose the perfect plan for your lifestyle — veg, non-veg, or a balanced
+        weekly mix.
+      </p>
+    </section>
+    <!-- Meal Plans -->
+    <section class="w-full py-10 bg-gray-50">
+      <!-- Main Layout -->
+      <div
+        class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-10 items-center"
+      >
+        <!-- LEFT: Image Slider -->
+        <div class="relative flex items-center justify-center">
+          <!-- Left Arrow -->
+          <button
+            onclick="changeImage(-1)"
+            class="absolute left-0 z-10 p-3 bg-white shadow-xl rounded-md hover:bg-gray-100 transition transform hover:scale-110"
+          >
+            <span class="text-xl font-bold text-gray-700">&#10094;</span>
+          </button>
+
+          <!-- Image Container -->
+          <div class="w-full max-w-lg mt-20">
+            <img
+              id="mealImage"
+              src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&h=400&fit=crop"
+              class="rounded-xl shadow-2xl w-full h-80 object-cover transition-all duration-500 ease-in-out"
+              alt="Meal Image"
+            />
+            <!-- Image Counter -->
+            <div class="text-center mt-4 text-lg font-medium text-gray-700">
+              <span id="imageCounter">1 / 9</span>
+            </div>
+            <!-- Plan Indicator -->
+            <div
+              class="text-center mt-2 text-sm text-gray-500 uppercase tracking-wider font-semibold"
+            >
+              <span id="currentPlanLabel">Veg Plan</span>
+            </div>
+          </div>
+
+          <!-- Right Arrow -->
+          <button
+            onclick="changeImage(1)"
+            class="absolute right-0 z-10 p-3 bg-white shadow-xl rounded-md hover:bg-gray-100 transition transform hover:scale-110"
+          >
+            <span class="text-xl font-bold text-gray-700">&#10095;</span>
+          </button>
+        </div>
+
+        <!-- RIGHT: Meal Table -->
+        <div class="">
+          <!-- Default Title (Veg) -->
+          <h4
+            id="planTitle"
+            class="text-2xl font-bold text-center mb-8 text-green-600"
+          >
+            Veg Plan
+          </h4>
+
+          <!-- Table with Default Veg Content -->
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+            <table class="w-full text-md" id="planTable">
+              <tbody id="tableBody">
+                <!-- Default Veg Rows (Visible on Load) -->
+                <tr class="border-b border-gray-200">
+                  <td class="p-4 font-bold bg-gray-50 text-gray-800 w-1/2">
+                    Container Size
+                  </td>
+                  <td class="p-4 font-semibold text-gray-700">
+                    8Oz / 12Oz / 16Oz / 24Oz
+                  </td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="p-4 font-bold bg-gray-50 text-gray-800 w-1/2">
+                    VEGETABLE / CURRY
+                  </td>
+                  <td class="p-4 font-semibold text-gray-700">Yes</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="p-4 font-bold bg-gray-50 text-gray-800 w-1/2">
+                    Dry Veg
+                  </td>
+                  <td class="p-4 font-semibold text-gray-700">Yes</td>
+                </tr>
+                <tr class="border-b border-gray-200">
+                  <td class="p-4 font-bold bg-gray-50 text-gray-800 w-1/2">
+                    Meal Preferences
+                  </td>
+                  <td class="p-4 font-semibold text-gray-700">
+                    4 Roties + Rice or 8 Roties
+                  </td>
+                </tr>
+                <tr>
+                  <td class="p-4 font-bold bg-gray-50 text-gray-800 w-1/2">
+                    SALAD / CURD / SWEET
+                  </td>
+                  <td class="p-4 font-semibold text-gray-700">Yes</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // ALL 9 IMAGES IN ORDER: Veg (1-3) → Non-Veg (4-6) → Hybrid (7-9)
+      const allImages = [
+        // Veg Images (1-3)
+        "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600&h=400&fit=crop",
+        // "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&h=400&fit=crop",
+        // "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=600&h=400&fit=crop",
+
+        // Non-Veg Images (4-6)
+        "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&h=400&fit=crop",
+        // "https://images.unsplash.com/photo-1432139555190-58524dae6a55?w=600&h=400&fit=crop",
+        // "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&h=400&fit=crop",
+
+        // Hybrid Images (7-9)
+        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop",
+        // "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&h=400&fit=crop",
+        // "https://images.unsplash.com/photo-1476224203421-9ac39bcb3327?w=600&h=400&fit=crop",
+      ];
+
+      // PLAN DATA
+      const plans = {
+        veg: {
+          title: "Veg Plan",
+          color: "text-green-600",
+          label: "Veg Plan",
+          rows: [
+            ["Container Size", "8Oz / 12Oz / 16Oz / 24Oz"],
+            ["VEGETABLE / CURRY", "Yes"],
+            ["Dry Veg", "Yes"],
+            ["Meal Preferences", "4 Roties + Rice or 8 Roties"],
+            ["SALAD / CURD / SWEET", "Yes"],
+          ],
+        },
+        nonveg: {
+          title: "Non-Veg Plan",
+          color: "text-red-600",
+          label: "Non-Veg Plan",
+          rows: [
+            ["Container Size", "8Oz / 12Oz / 16Oz / 24Oz"],
+            ["Non Veg Curry", "Yes"],
+            ["1 Veg Dish (Dry and Gravy)", "Yes"],
+            ["Meal Preference", "4 Roties + Rice or 8 Roties"],
+            ["SALAD / CURD / SWEET", "Yes"],
+          ],
+        },
+        hybrid: {
+          title: "Hybrid Plan (Veg + Non-Veg)",
+          color: "text-orange-600",
+          label: "Hybrid Plan",
+          rows: [
+            ["Container Size", "8Oz / 12Oz / 16Oz / 24Oz"],
+            ["Non Veg CURRY", "Yes"],
+            ["1 Veg Dish (Dry and Gravy)", "Yes"],
+            ["Meal Preference", "4 Roties + Rice or 8 Roties"],
+            ["SALAD / CURD / SWEET", "Yes"],
+          ],
+        },
+      };
+
+      let currentImageIndex = 0;
+      const totalImages = allImages.length;
+
+      function getCurrentPlan() {
+        if (currentImageIndex < 1) return "veg";
+        if (currentImageIndex < 2) return "nonveg";
+        if (currentImageIndex < 3) return "hybrid";
+        return "hybrid";
+      }
+
+      function updateImage() {
+        const img = document.getElementById("mealImage");
+        const counter = document.getElementById("imageCounter");
+
+        img.style.opacity = "0";
+
+        setTimeout(() => {
+          img.src = allImages[currentImageIndex];
+          counter.textContent = `${currentImageIndex + 1} / ${totalImages}`;
+          img.style.opacity = "1";
+        }, 300);
+
+        updatePlanTable();
+      }
+
+      function updatePlanTable() {
+        const planKey = getCurrentPlan();
+        const plan = plans[planKey];
+
+        // Update title
+        const titleElement = document.getElementById("planTitle");
+        titleElement.textContent = plan.title;
+        titleElement.className = `text-2xl font-bold text-center mb-8 ${plan.color}`;
+
+        // Update label below image
+        document.getElementById("currentPlanLabel").textContent = plan.label;
+
+        // Update table rows
+        let html = "";
+        plan.rows.forEach((row, index) => {
+          const borderClass =
+            index !== plan.rows.length - 1 ? "border-b border-gray-200" : "";
+          html += `
+        <tr class="${borderClass}">
+          <td class="p-4 font-bold bg-gray-50 text-gray-800 w-1/2">${row[0]}</td>
+          <td class="p-4 font-semibold text-gray-700">${row[1]}</td>
+        </tr>
+      `;
+        });
+
+        document.getElementById("tableBody").innerHTML = html;
+      }
+
+      function changeImage(direction) {
+        currentImageIndex =
+          (currentImageIndex + direction + totalImages) % totalImages;
+        updateImage();
+      }
+
+      // Optional: Auto-play slider
+      // setInterval(() => changeImage(1), 5000);
+
+      // Initialize on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        currentImageIndex = 0;
+        updateImage(); // Sync everything on load
+      });
+    </script>
+    <!-- end Meal Plans -->
+    <!-- MEAL PLAN CARDS -->
+    <div class="flex justify-center m-4">
+      <button
+        onclick="toggleSection('mealCards')"
+        class="px-10 py-3 bg-green-500 text-white rounded-full font-semibold hover:bg-green-700"
+      >
+        Meal Plan Details
+      </button>
+    </div>
+    <div
+      id="mealCards"
+      class="hidden max-w-6xl mx-auto py-12 px-6 grid gap-8 md:grid-cols-3"
+    >
+      <!-- Hybrid Plan -->
+      <div
+        class="bg-white p-6 border rounded-xl shadow-md hover:shadow-lg transition"
+      >
+        <h2 class="text-2xl font-bold mb-4 text-green-700">
+          Hybrid Plan (Veg + Non-Veg)
+        </h2>
+
+        <p class="text-black mb-4">
+          A balanced rotation of vegetarian and non-vegetarian dishes throughout
+          the week.
+        </p>
+
+        <h3 class="font-bold text-gray-900 mb-2">Weekly Structure:</h3>
+        <ul class="space-y-2 text-black">
+          <li>
+            • <strong>Monday & Friday:</strong> Chicken dish + one vegetarian
+            side.
+          </li>
+          <li>
+            • <strong>Wednesday:</strong> Egg-based dish + one vegetarian side.
+          </li>
+          <li>• <strong>2 Days:</strong> Fully vegetarian meals.</li>
+        </ul>
+
+        <p class="mt-4 text-gray-800 font-semibold">
+          Ideal for customers who prefer light non-veg rotation with regular
+          vegetarian meals.
+        </p>
+      </div>
+
+      <!-- Non-Veg Plan -->
+      <div
+        class="bg-white border p-6 rounded-xl shadow-md hover:shadow-lg transition"
+      >
+        <h2 class="text-2xl font-bold mb-4 text-green-700">
+          Non-Veg Plan (Daily Non-Veg)
+        </h2>
+
+        <p class="text-text-black mb-4">
+          Designed for customers who want non-veg meals more frequently with
+          variety.
+        </p>
+
+        <h3 class="font-bold text-gray-900 mb-2">Weekly Structure:</h3>
+        <ul class="space-y-2 text-text-black">
+          <li>• <strong>Mon–Fri:</strong> One veg + one non-veg item daily.</li>
+          <li>• <strong>Egg:</strong> Served once a week.</li>
+          <li>• <strong>Fish:</strong> Served once a week.</li>
+          <li>• All other days: Chicken dishes.</li>
+        </ul>
+
+        <p class="mt-4 text-gray-800 font-semibold">
+          Perfect for those who enjoy consistent non-veg meals with weekly
+          variety.
+        </p>
+      </div>
+
+      <!-- Saturday Special -->
+      <div
+        class="bg-white border p-6 rounded-xl shadow-md hover:shadow-lg transition"
+      >
+        <h2 class="text-2xl font-bold mb-4 text-green-700">
+          Saturday Special Meal
+        </h2>
+
+        <p class="text-text-black mb-4">
+          Enjoy a premium upgraded weekend meal crafted specially by our chef.
+        </p>
+
+        <ul class="space-y-2 text-text-black">
+          <li>• Richer preparation</li>
+          <li>• Enhanced portions</li>
+          <li>• Special chef-selected dish</li>
+        </ul>
+
+        <p class="mt-4 text-gray-800 font-semibold">
+          A perfect way to make your weekend meal more satisfying and enjoyable.
+        </p>
+      </div>
+    </div>
+    <script>
+      function toggleSection(id) {
+        document.getElementById(id).classList.toggle("hidden");
+      }
+    </script>
+
+    <!-- Meal button -->
+    <div class="max-w-7xl mx-auto px-6 py-10">
+      <!-- City Selection Buttons -->
+      <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <button
+          onclick="showCity('brampton')"
+          id="btn-brampton"
+          class="city-btn px-6 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+        >
+          Brampton
+        </button>
+        <button
+          onclick="showCity('toronto')"
+          id="btn-toronto"
+          class="city-btn px-6 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+        >
+          Toronto
+        </button>
+        <button
+          onclick="showCity('etobicoke')"
+          id="btn-etobicoke"
+          class="city-btn px-6 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+        >
+          Etobicoke
+        </button>
+        <button
+          onclick="showCity('mississauga')"
+          id="btn-mississauga"
+          class="city-btn px-6 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+        >
+          Mississauga
+        </button>
+        <button
+          onclick="showCity('oakville')"
+          id="btn-oakville"
+          class="city-btn px-6 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+        >
+          Oakville
+        </button>
+        <button
+          onclick="showCity('scarborough')"
+          id="btn-scarborough"
+          class="city-btn px-6 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+        >
+          Scarborough
+        </button>
+        <button
+          onclick="showCity('northyork')"
+          id="btn-northyork"
+          class="city-btn px-6 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+        >
+          North York
+        </button>
+        <button
+          onclick="showCity('eastyork')"
+          id="btn-eastyork"
+          class="city-btn px-6 py-3 bg-white border-2 border-gray-300 rounded-lg font-semibold hover:border-green-500 transition"
+        >
+          East York
+        </button>
+      </div>
+
+      <!-- City Name Display -->
+      <h2
+        id="cityName"
+        class="text-3xl font-bold text-center text-green-600 mb-8"
+      >
+        Brampton
+      </h2>
+
+      <!-- Plans Container -->
+      <div id="plansContainer" class="space-y-8">
+        <!-- Plans will be inserted here on load -->
+      </div>
+    </div>
+
+    <script>
+      const cityPlans = {
+        brampton: {
+          name: "Brampton",
+          trial: {
+            title: "Trial Meal (1 Tiffin)",
+            prices: [
+              { size: "8oz", price: "$13" },
+              { size: "12oz", price: "$15" },
+              { size: "16oz", price: "$20" },
+              { size: "24oz", price: "$22" },
+            ],
+          },
+          weekly: {
+            title: "Weekly Plans (6 Tiffins)",
+            prices: [
+              { size: "8oz", price: "$75" },
+              { size: "12oz", price: "$80" },
+              { size: "16oz", price: "$90" },
+              { size: "24oz", price: "$95" },
+            ],
+          },
+          veg: {
+            title: "Monthly Veg Plan (24 Tiffins / 20 Tiffins)",
+            prices: [
+              { size: "8oz", price: "$230", fiveDay: "$215" },
+              { size: "12oz", price: "$250", fiveDay: "$230" },
+              { size: "16oz", price: "$290", fiveDay: "$270" },
+              { size: "24oz", price: "$310", fiveDay: "$290" },
+            ],
+          },
+          hybrid: {
+            title: "Monthly Hybrid Plan (Veg + Non-Veg)",
+            subtitle: "Add $20/month for Daily Non-Veg",
+            prices: [
+              { size: "8oz", price: "$250", fiveDay: "$230" },
+              { size: "12oz", price: "$275", fiveDay: "$255" },
+              { size: "16oz", price: "$310", fiveDay: "$290" },
+              { size: "24oz", price: "$330", fiveDay: "$310" },
+            ],
+          },
+        },
+        toronto: {
+          name: "Toronto",
+          note: "Add $20 for a month",
+          trial: {
+            title: "Trial Meal (1 Tiffin)",
+            prices: [
+              { size: "8oz", price: "$13" },
+              { size: "12oz", price: "$15" },
+              { size: "16oz", price: "$20" },
+              { size: "24oz", price: "$22" },
+            ],
+          },
+          weekly: {
+            title: "Weekly Plans (6 Tiffins)",
+            prices: [
+              { size: "8oz", price: "$75" },
+              { size: "12oz", price: "$80" },
+              { size: "16oz", price: "$90" },
+              { size: "24oz", price: "$95" },
+            ],
+          },
+          veg: {
+            title: "Monthly Veg Plan",
+            prices: [
+              { size: "8oz", price: "$240", fiveDay: "$225" },
+              { size: "12oz", price: "$260", fiveDay: "$240" },
+              { size: "16oz", price: "$300", fiveDay: "$280" },
+              { size: "24oz", price: "$320", fiveDay: "$300" },
+            ],
+          },
+          nonveg: {
+            title: "Monthly Non-Veg Plan",
+            subtitle: "Add $20/month for Daily Non-Veg",
+            prices: [
+              { size: "8oz", price: "$260", fiveDay: "$240" },
+              { size: "12oz", price: "$285", fiveDay: "$265" },
+              { size: "16oz", price: "$320", fiveDay: "$300" },
+              { size: "24oz", price: "$350", fiveDay: "$330" },
+            ],
+          },
+        },
+        etobicoke: {
+          name: "Etobicoke",
+          trial: {
+            title: "Trial Meal (1 Tiffin)",
+            prices: [
+              { size: "8oz", price: "$13" },
+              { size: "12oz", price: "$15" },
+              { size: "16oz", price: "$20" },
+              { size: "24oz", price: "$22" },
+            ],
+          },
+          weekly: {
+            title: "Weekly Plans (6 Tiffins)",
+            prices: [
+              { size: "8oz", price: "$75" },
+              { size: "12oz", price: "$80" },
+              { size: "16oz", price: "$90" },
+              { size: "24oz", price: "$95" },
+            ],
+          },
+          veg: {
+            title: "Monthly Veg Plan",
+            prices: [
+              { size: "8oz", price: "$240", fiveDay: "$225" },
+              { size: "12oz", price: "$260", fiveDay: "$240" },
+              { size: "16oz", price: "$300", fiveDay: "$280" },
+              { size: "24oz", price: "$320", fiveDay: "$300" },
+            ],
+          },
+          nonveg: {
+            title: "Monthly Non-Veg Plan",
+            subtitle: "Add $20/month for Daily Non-Veg",
+            prices: [
+              { size: "8oz", price: "$260", fiveDay: "$240" },
+              { size: "12oz", price: "$285", fiveDay: "$265" },
+              { size: "16oz", price: "$320", fiveDay: "$300" },
+              { size: "24oz", price: "$350", fiveDay: "$330" },
+            ],
+          },
+        },
+        mississauga: {
+          name: "Mississauga",
+          trial: {
+            title: "Trial Meal (1 Tiffin)",
+            prices: [
+              { size: "8oz", price: "$13" },
+              { size: "12oz", price: "$15" },
+              { size: "16oz", price: "$20" },
+              { size: "24oz", price: "$22" },
+            ],
+          },
+          weekly: {
+            title: "Weekly Plans (6 Tiffins)",
+            prices: [
+              { size: "8oz", price: "$75" },
+              { size: "12oz", price: "$80" },
+              { size: "16oz", price: "$90" },
+              { size: "24oz", price: "$95" },
+            ],
+          },
+          veg: {
+            title: "Monthly Veg Plan",
+            prices: [
+              { size: "8oz", price: "$240", fiveDay: "$225" },
+              { size: "12oz", price: "$260", fiveDay: "$240" },
+              { size: "16oz", price: "$300", fiveDay: "$280" },
+              { size: "24oz", price: "$320", fiveDay: "$300" },
+            ],
+          },
+          nonveg: {
+            title: "Monthly Non-Veg Plan",
+            subtitle: "Add $20/month for Daily Non-Veg",
+            prices: [
+              { size: "8oz", price: "$260", fiveDay: "$240" },
+              { size: "12oz", price: "$285", fiveDay: "$265" },
+              { size: "16oz", price: "$320", fiveDay: "$300" },
+              { size: "24oz", price: "$350", fiveDay: "$330" },
+            ],
+          },
+        },
+        oakville: {
+          name: "Oakville",
+          note: "Monday to Friday delivery only (20 Tiffins/month)",
+          trial: {
+            title: "Trial Meal (1 Tiffin)",
+            prices: [
+              { size: "8oz", price: "$13" },
+              { size: "12oz", price: "$15" },
+              { size: "16oz", price: "$20" },
+              { size: "24oz", price: "$22" },
+            ],
+          },
+          weekly: {
+            title: "Weekly Plans (6 Tiffins)",
+            prices: [
+              { size: "8oz", price: "$75" },
+              { size: "12oz", price: "$80" },
+              { size: "16oz", price: "$90" },
+              { size: "24oz", price: "$95" },
+            ],
+          },
+          veg: {
+            title: "Monthly Veg Plan",
+            prices: [
+              { size: "8oz", price: "$240" },
+              { size: "12oz", price: "$260" },
+              { size: "16oz", price: "$300" },
+              { size: "24oz", price: "$320" },
+            ],
+          },
+          nonveg: {
+            title: "Monthly Non-Veg Plan",
+            subtitle: "Add $20/month for Daily Non-Veg",
+            prices: [
+              { size: "8oz", price: "$260" },
+              { size: "12oz", price: "$285" },
+              { size: "16oz", price: "$320" },
+              { size: "24oz", price: "$350" },
+            ],
+          },
+        },
+        scarborough: {
+          name: "Scarborough",
+          trial: {
+            title: "Trial Meal (1 Tiffin)",
+            prices: [
+              { size: "8oz", price: "$13" },
+              { size: "12oz", price: "$15" },
+              { size: "16oz", price: "$20" },
+              { size: "24oz", price: "$22" },
+            ],
+          },
+          weekly: {
+            title: "Weekly Plans (6 Tiffins)",
+            prices: [
+              { size: "8oz", price: "$75" },
+              { size: "12oz", price: "$80" },
+              { size: "16oz", price: "$90" },
+              { size: "24oz", price: "$95" },
+            ],
+          },
+          veg: {
+            title: "Monthly Veg Plan",
+            prices: [
+              { size: "8oz", price: "$240", fiveDay: "$225" },
+              { size: "12oz", price: "$260", fiveDay: "$240" },
+              { size: "16oz", price: "$300", fiveDay: "$280" },
+              { size: "24oz", price: "$320", fiveDay: "$300" },
+            ],
+          },
+          nonveg: {
+            title: "Monthly Non-Veg Plan",
+            subtitle: "Add $20/month for Daily Non-Veg",
+            prices: [
+              { size: "8oz", price: "$260", fiveDay: "$240" },
+              { size: "12oz", price: "$285", fiveDay: "$265" },
+              { size: "16oz", price: "$320", fiveDay: "$300" },
+              { size: "24oz", price: "$350", fiveDay: "$330" },
+            ],
+          },
+        },
+        northyork: {
+          name: "North York",
+          trial: {
+            title: "Trial Meal (1 Tiffin)",
+            prices: [
+              { size: "8oz", price: "$13" },
+              { size: "12oz", price: "$15" },
+              { size: "16oz", price: "$20" },
+              { size: "24oz", price: "$22" },
+            ],
+          },
+          weekly: {
+            title: "Weekly Plans (6 Tiffins)",
+            prices: [
+              { size: "8oz", price: "$75" },
+              { size: "12oz", price: "$80" },
+              { size: "16oz", price: "$90" },
+              { size: "24oz", price: "$95" },
+            ],
+          },
+          veg: {
+            title: "Monthly Veg Plan",
+            prices: [
+              { size: "8oz", price: "$240", fiveDay: "$225" },
+              { size: "12oz", price: "$260", fiveDay: "$240" },
+              { size: "16oz", price: "$300", fiveDay: "$280" },
+              { size: "24oz", price: "$320", fiveDay: "$300" },
+            ],
+          },
+          nonveg: {
+            title: "Monthly Non-Veg Plan",
+            subtitle: "Add $20/month for Daily Non-Veg",
+            prices: [
+              { size: "8oz", price: "$260", fiveDay: "$240" },
+              { size: "12oz", price: "$285", fiveDay: "$265" },
+              { size: "16oz", price: "$320", fiveDay: "$300" },
+              { size: "24oz", price: "$350", fiveDay: "$330" },
+            ],
+          },
+        },
+        eastyork: {
+          name: "East York",
+          note: "Add $20 for a month",
+          trial: {
+            title: "Trial Meal (1 Tiffin)",
+            prices: [
+              { size: "8oz", price: "$13" },
+              { size: "12oz", price: "$15" },
+              { size: "16oz", price: "$20" },
+              { size: "24oz", price: "$22" },
+            ],
+          },
+          weekly: {
+            title: "Weekly Plans (6 Tiffins)",
+            prices: [
+              { size: "8oz", price: "$75" },
+              { size: "12oz", price: "$80" },
+              { size: "16oz", price: "$90" },
+              { size: "24oz", price: "$95" },
+            ],
+          },
+          veg: {
+            title: "Monthly Veg Plan",
+            prices: [
+              { size: "8oz", price: "$240", fiveDay: "$225" },
+              { size: "12oz", price: "$260", fiveDay: "$240" },
+              { size: "16oz", price: "$300", fiveDay: "$280" },
+              { size: "24oz", price: "$320", fiveDay: "$300" },
+            ],
+          },
+          nonveg: {
+            title: "Monthly Non-Veg Plan",
+            subtitle: "Add $20/month for Daily Non-Veg",
+            prices: [
+              { size: "8oz", price: "$260", fiveDay: "$240" },
+              { size: "12oz", price: "$285", fiveDay: "$265" },
+              { size: "16oz", price: "$320", fiveDay: "$300" },
+              { size: "24oz", price: "$350", fiveDay: "$330" },
+            ],
+          },
+        },
+      };
+
+      function createPlanCard(plan, color) {
+        const borderColor =
+          color === "green"
+            ? "border-green-300"
+            : color === "red"
+            ? "border-red-300"
+            : "border-orange-300";
+
+        const bgColor =
+          color === "green"
+            ? "bg-green-50"
+            : color === "red"
+            ? "bg-red-50"
+            : "bg-orange-50";
+
+        const textColor =
+          color === "green"
+            ? "text-green-700"
+            : color === "red"
+            ? "text-red-700"
+            : "text-orange-700";
+
+        let html = `
+      <div class="bg-white rounded-xl shadow-lg p-8 border-2 ${borderColor}">
+        <h3 class="text-2xl font-bold ${textColor} mb-3">${plan.title}</h3>
+        ${
+          plan.subtitle
+            ? `<p class="text-sm text-gray-600 mb-6 italic">${plan.subtitle}</p>`
+            : ""
+        }
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    `;
+
+        plan.prices.forEach((item) => {
+          html += `
+        <div class="text-center p-5 rounded-lg ${bgColor} border ${borderColor}">
+          <p class="text-gray-600 font-medium">${item.size}</p>
+          <p class="text-2xl font-bold ${textColor} mt-2">${item.price}</p>
+          ${
+            item.fiveDay
+              ? `<p class="text-sm ${textColor} font-semibold mt-2">${item.fiveDay}<br><span class="text-xs">5 Days/Week</span></p>`
+              : ""
+          }
+        </div>
+      `;
+        });
+
+        html += `
+        </div>
+      </div>
+    `;
+
+        return html;
+      }
+
+      function showCity(city) {
+        const cityData = cityPlans[city];
+        if (!cityData) return;
+
+        const container = document.getElementById("plansContainer");
+
+        // Update city name
+        document.getElementById("cityName").textContent = cityData.name;
+
+        // Update active button
+        document.querySelectorAll(".city-btn").forEach((btn) => {
+          btn.classList.remove(
+            "bg-green-500",
+            "text-white",
+            "border-green-500"
+          );
+          btn.classList.add("bg-white", "border-gray-300");
+        });
+
+        // Highlight selected button
+        document
+          .getElementById(`btn-${city}`)
+          .classList.remove("bg-white", "border-gray-300");
+        document
+          .getElementById(`btn-${city}`)
+          .classList.add("bg-green-500", "text-white", "border-green-500");
+
+        // Build plans HTML
+        let html = "";
+
+        // City-specific note
+        if (cityData.note) {
+          html += `
+        <div class="bg-amber-50 border-2 border-amber-300 rounded-xl p-5 text-center mb-10">
+          <p class="text-amber-800 font-bold text-lg">${cityData.note}</p>
+        </div>
+      `;
+        }
+
+        // Always show Trial and Weekly
+        html += createPlanCard(cityData.trial, "green");
+        html += createPlanCard(cityData.weekly, "green");
+
+        // Veg Plan
+        if (cityData.veg) html += createPlanCard(cityData.veg, "green");
+
+        // Non-Veg Plan
+        if (cityData.nonveg) html += createPlanCard(cityData.nonveg, "red");
+
+        // Hybrid Plan (only Brampton)
+        if (cityData.hybrid) html += createPlanCard(cityData.hybrid, "orange");
+
+        container.innerHTML = html;
+
+        // Smooth scroll to plans
+        container.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+
+      // Show Brampton on page load
+      window.addEventListener("DOMContentLoaded", () => {
+        showCity("brampton");
+      });
+    </script>
+
+    <!-- footer -->
+    <section class="bg-white">
+      <footer class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Top Section -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <!-- Logo + Description -->
+          <div class="space-y-4">
+            <img src="/images/logo.jpeg" class="w-32" alt="" />
+            <p class="text-black text-lg leading-relaxed">
+              SpicyFeast delivers homestyle Veg, Non-Veg, and Hybrid ti ins
+              across the GTA. With a seasoned chef and a commitment to fresh
+              daily cooking, we’ve delivered over 50,000 meals since September
+              2024.
+            </p>
+          </div>
+
+          <!-- Useful links -->
+          <div class="flex justify-between md:justify-start md:gap-20">
+            <div>
+              <h3 class="font-bold text-green-700 mb-3 tracking-wide">
+                USEFUL LINKS
+              </h3>
+              <ul class="space-y-2 text-black font-bold">
+                <li>
+                  <a href="index.html" class="hover:text-green-600">Home</a>
+                </li>
+                <li>
+                  <a href="AboutUs.html" class="hover:text-green-600"
+                    >About Us</a
+                  >
+                </li>
+                <li>
+                  <a href="MealPlans.html" class="hover:text-green-600"
+                    >Meal Plans</a
+                  >
+                </li>
+                <li>
+                  <a href="Gallery.html" class="hover:text-green-600"
+                    >Gallery</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="font-bold text-green-700 mb-3 tracking-wide">
+                INFORMATION
+              </h3>
+              <ul class="space-y-2 text-black font-bold mt-6 md:mt-0">
+                <li>
+                  <a href="Blog.html" class="hover:text-green-600">Blog</a>
+                </li>
+                <li>
+                  <a href="PrivacyPolicy.html" class="hover:text-green-600"
+                    >Privacy Policy</a
+                  >
+                </li>
+                <li>
+                  <a href="TermsConditions.html" class="hover:text-green-600"
+                    >Terms & Condition</a
+                  >
+                </li>
+                <li>
+                  <a href="ContactUs.html" class="hover:text-green-600"
+                    >Contact Us</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Contact Us -->
+          <div>
+            <h3 class="font-bold text-green-700 mb-3 tracking-wide">
+              CONTACT US
+            </h3>
+            <ul class="space-y-3 text-black font-bold">
+              <li class="flex items-start gap-2">
+                <span>📞</span> +1 437-604-5840
+              </li>
+              <li class="flex items-start gap-2">
+                <span>✉️</span> Support@Spicyfeast.Ca
+              </li>
+              <li class="flex items-start gap-2">
+                <span>📍</span>
+                Spicy Feast 20 Lockport Avenue Etobicoke M8Z 2R7
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-b border-black my-10"></div>
+
+        <!-- Bottom Copyright -->
+        <div class="text-center text-black mt-10 text-md">
+          © 2025 All rights reserved. Design and Developed by Spicyfeast
+        </div>
+      </footer>
+    </section>
+  </body>
+</html>

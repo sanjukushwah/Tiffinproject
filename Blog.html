@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+  </head>
+  <body class="bg-white">
+    <!-- header section -->
+    <header
+      x-data="{ open: false }"
+      class="sticky top-0 z-50 bg-white shadow-md"
+    >
+      <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+          <!-- Left: Logo -->
+          <div class="text-2xl font-bold">
+            <img
+              src="images/logo.jpeg"
+              class="h-20 rounded-md"
+              alt="logo image"
+            />
+          </div>
+
+          <!-- desktop menu-->
+          <div class="hidden md:flex items-center gap-3">
+            <!-- LOGGED-OUT LOGIN/SIGNUP BUTTONS -->
+            <ul class="hidden lg:flex space-x-8 font-semibold text-gray-900">
+              <li>
+                <a href="index.html">HOME</a>
+              </li>
+              <li><a href="AboutUs.html">ABOUT US</a></li>
+              <li><a href="MealPlan.html">MEAL PLANS</a></li>
+              <li><a href="Services.html">SERVICES</a></li>
+              <li><a href="Gallery.html">GALLERY</a></li>
+              <li><a href="Blog.html">BLOG</a></li>
+              <li><a href="ContactUs.html">CONTACT US</a></li>
+            </ul>
+          </div>
+          <div class="hidden lg:flex space-x-4">
+            <button
+              id="openLoginBtn"
+              class="bg-green-500 text-white font-semibold px-6 py-3 rounded-full"
+            >
+              Login
+            </button>
+            <button
+              id="openModalBtn"
+              class="bg-green-500 text-white font-semibold px-6 py-3 rounded-full"
+            >
+              Signup
+            </button>
+          </div>
+          <!-- Mobile Hamburger -->
+          <button
+            class="lg:hidden text-black focus:outline-none"
+            @click="open = !open"
+          >
+            <!-- Mobile Menu Button Icon -->
+            <svg
+              x-show="!open"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+
+            <!-- Close Icon -->
+            <svg
+              x-show="open"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div
+        x-show="open"
+        x-transition
+        class="md:hidden bg-white border-t border-gray-300 shadow-lg px-4 py-3 space-y-3"
+      >
+        <!-- Links -->
+        <nav class="flex flex-col space-y-4 text-black font-medium">
+          <ul class="font-bold text-black mb-4">
+            <li class="mb-3"><a href="AboutUs.html">ABOUT US</a></li>
+            <li class="mb-3"><a href="MealPlan.html">MEAL PLANS</a></li>
+            <li class="mb-3"><a href="Services.html">SERVICES</a></li>
+            <li class="mb-3"><a href="Gallery.html">GALLERY</a></li>
+            <li class="mb-3"><a href="Blog.html">BLOG</a></li>
+            <li class=""><a href="ContactUs.html">CONTACT US</a></li>
+          </ul>
+        </nav>
+        <div class="flex items-center gap-2">
+          <button
+            id="openLoginBtn"
+            class="flex-1 bg-green-500 border border-black rounded-full px-4 py-2 font-medium"
+          >
+            Login
+          </button>
+          <button
+            id="openModalBtn"
+            class="flex-1 bg-green-500 border border-black rounded-full px-4 py-2 font-medium"
+          >
+            Signup
+          </button>
+        </div>
+      </div>
+      <!-- login Modal -->
+      <div
+        id="loginModal"
+        class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      >
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-md relative p-6">
+          <!-- Close button -->
+          <button
+            id="closeLoginBtn"
+            class="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl"
+          >
+            ✕
+          </button>
+
+          <!-- Title -->
+          <!-- <h2 class="text-2xl text-center font-bold mb-2">Log In</h2> -->
+          <p class="text-3xl font-bold mb-4 text-center">
+            Welcome to Spicyfeast
+          </p>
+          <!-- <p class="text-sm text-gray-600 mb-6">
+            Please confirm your country code and enter your phone number.
+          </p> -->
+
+          <!-- Form -->
+          <form class="space-y-4">
+            <!--Email -->
+
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+
+            <!-- Password -->
+            <input
+              type="password"
+              placeholder="Password"
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+
+            <!-- Login Button -->
+            <button
+              type="submit"
+              class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 disabled:opacity-50"
+            >
+              Login
+            </button>
+            <!-- Google Button -->
+            <button
+              type="button"
+              class="w-full flex items-center justify-center gap-2 border rounded-xl py-3 hover:bg-gray-50 transition cursor-pointer"
+            >
+              <img
+                src="https://www.svgrepo.com/show/355037/google.svg"
+                alt="Google"
+                class="w-5 h-5"
+              />
+              <span class="font-medium">Continue with google</span>
+            </button>
+          </form>
+
+          <!-- Reset Password -->
+          <div class="mt-4 text-center">
+            <a href="#" class="text-teal-600 font-medium hover:underline"
+              >Reset Password</a
+            >
+          </div>
+
+          <!-- Divider -->
+          <div class="flex items-center my-4">
+            <div class="flex-1 h-px bg-gray-300"></div>
+            <span class="px-2 text-gray-500 text-sm">or</span>
+            <div class="flex-1 h-px bg-gray-300"></div>
+          </div>
+
+          <!-- Login with OTP -->
+          <!-- <button
+            class="w-full border bg-yellow-400 border-gray-400 text-black py-2 rounded-lg hover:bg-gray-100"
+          >
+            Login with OTP
+          </button> -->
+
+          <!-- Footer -->
+          <p class="text-sm text-center mt-4">
+            Don’t Have An Account?
+            <a href="#" class="text-teal-600 font-medium hover:underline"
+              >Sign Up</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <script>
+        const loginModal = document.getElementById("loginModal");
+        const openLoginBtn = document.getElementById("openLoginBtn");
+        const closeLoginBtn = document.getElementById("closeLoginBtn");
+
+        openLoginBtn.addEventListener("click", () => {
+          loginModal.classList.remove("hidden");
+        });
+
+        closeLoginBtn.addEventListener("click", () => {
+          loginModal.classList.add("hidden");
+        });
+
+        // Close when clicking outside modal
+        loginModal.addEventListener("click", (e) => {
+          if (e.target === loginModal) {
+            loginModal.classList.add("hidden");
+          }
+        });
+      </script>
+
+      <!--signup Modal -->
+      <div
+        id="signupModal"
+        class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      >
+        <div class="bg-white rounded-xl shadow-lg w-full max-w-md relative p-6">
+          <!-- Close button -->
+          <button
+            id="closeModalBtn"
+            class="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl"
+          >
+            ✕
+          </button>
+
+          <!-- Modal Content -->
+          <!-- <h2 class="text-2xl font-semibold mb-6">Sign Up</h2> -->
+          <p class="text-3xl font-bold mb-4 text-center">Create an Account</p>
+
+          <form class="space-y-4">
+            <!-- First Name -->
+            <input
+              type="text"
+              placeholder="First name"
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+
+            <!-- Last Name -->
+            <input
+              type="text"
+              placeholder="Last name"
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+
+            <!-- --Email -->
+            <input
+              type="email"
+              placeholder="Enter your email"
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+
+            <!-- Password -->
+            <input
+              type="password"
+              placeholder="Password"
+              class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+            />
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 disabled:opacity-50"
+            >
+              Sign Up
+            </button>
+            <!-- Google Button -->
+            <button
+              type="button"
+              class="w-full flex items-center justify-center gap-2 border rounded-xl py-3 hover:bg-gray-50 transition cursor-pointer"
+            >
+              <img
+                src="https://www.svgrepo.com/show/355037/google.svg"
+                alt="Google"
+                class="w-5 h-5"
+              />
+              <span class="font-medium">Continue with google</span>
+            </button>
+          </form>
+
+          <!-- Footer -->
+          <p class="text-xs text-gray-500 mt-4 text-center">
+            By continuing you agree to our Terms of Services & Privacy Policy
+          </p>
+
+          <p class="text-sm text-center mt-3">
+            Have An Account?
+            <a href="#" class="text-teal-600 font-medium hover:underline"
+              >Login</a
+            >
+          </p>
+        </div>
+      </div>
+
+      <script>
+        const modal = document.getElementById("signupModal");
+        const openBtn = document.getElementById("openModalBtn");
+        const closeBtn = document.getElementById("closeModalBtn");
+
+        openBtn.addEventListener("click", () => {
+          modal.classList.remove("hidden");
+        });
+
+        closeBtn.addEventListener("click", () => {
+          modal.classList.add("hidden");
+        });
+
+        // Close when clicking outside modal
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) {
+            modal.classList.add("hidden");
+          }
+        });
+      </script>
+    </header>
+    <!-- end header section -->
+    <!-- =================== HERO BANNER =================== -->
+    <section class="relative h-[380px] md:h-[450px] w-full">
+      <img
+        src="/images/Mask-group-2.jpg"
+        class="absolute inset-0 w-full h-full object-cover"
+        alt="Background"
+      />
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+
+      <!-- Content -->
+      <div
+        class="relative z-10 flex flex-col justify-center items-center h-full text-center text-white px-6"
+      >
+        <h1 class="text-3xl md:text-4xl font-semibold">Blog</h1>
+
+        <p class="mt-3 text-lg">
+          Home <span class="mx-2 text-gray-300">/</span> Blog
+        </p>
+      </div>
+    </section>
+    <!-- Blog Grid -->
+    <section class="max-w-7xl mx-auto px-3 py-12">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+        <!-- CARD 1 -->
+        <div>
+          <img
+            src="images/FOOD-SO-HEALTHY.jpg"
+            class="w-full h-64 object-cover rounded-t-lg"
+          />
+
+          <div class="bg-green-100 text-center p-6 rounded-b-lg">
+            <p class="text-green-700 text-sm font-medium">Uncategorized</p>
+
+            <h2
+              class="mt-3 mb-2 text-xl font-semibold text-gray-900 leading-relaxed"
+            >
+              Food So Healthy, It Will Remind You Of Home
+            </h2>
+
+            <div
+              class="flex justify-center items-center gap-3 text-gray-700 text-sm"
+            >
+              <span>Nov 28 ,2025</span>
+              <span>-</span>
+              <span>admin</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div>
+          <img
+            src="images/GREEN-SOUL-KITCHENS-SPREADS-LOVE.jpg"
+            class="w-full h-64 object-cover rounded-t-lg"
+          />
+
+          <div class="bg-green-100 text-center p-6 rounded-b-lg">
+            <p class="text-green-700 text-sm font-medium">Uncategorized</p>
+
+            <h2
+              class="mt-3 mb-2 text-xl font-semibold text-gray-900 leading-relaxed"
+            >
+              Green Soul Kitchens Spreads Love And Health Through Its Food
+            </h2>
+
+            <div
+              class="flex justify-center items-center gap-3 text-gray-700 text-sm"
+            >
+              <span>Nov 28 ,2025</span>
+              <span>-</span>
+              <span>admin</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div>
+          <img
+            src="images/TIFFINS-THAT-WILL-MAKE-YOUR-SOUL-GREEN-AND-HAPPY.jpg"
+            class="w-full h-64 object-cover rounded-t-lg"
+          />
+
+          <div class="bg-green-100 text-center p-6 rounded-b-lg">
+            <p class="text-green-700 text-sm font-medium">Uncategorized</p>
+
+            <h2
+              class="mt-3 mb-2 text-xl font-semibold text-gray-900 leading-relaxed"
+            >
+              Bringing Home To Your Doorstep
+            </h2>
+
+            <div
+              class="flex justify-center items-center gap-3 text-gray-700 text-sm"
+            >
+              <span>Nov 28 ,2025</span>
+              <span>-</span>
+              <span>admin</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div>
+          <img
+            src="images/spices3.jpg"
+            class="w-full h-64 object-cover rounded-t-lg"
+          />
+
+          <div class="bg-green-100 text-center p-6 rounded-b-lg">
+            <p class="text-green-700 text-sm font-medium">Uncategorized</p>
+
+            <h2
+              class="mt-3 mb-2 text-xl font-semibold text-gray-900 leading-relaxed"
+            >
+              Tiffins That Will Make Your Soul Green And Happy
+            </h2>
+
+            <div
+              class="flex justify-center items-center gap-3 text-gray-700 text-sm"
+            >
+              <span>Nov 28 ,2025</span>
+              <span>-</span>
+              <span>admin</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 5 -->
+        <div>
+          <img
+            src="images/dal.jpg"
+            class="w-full h-64 object-cover rounded-t-lg"
+          />
+
+          <div class="bg-green-100 text-center p-6 rounded-b-lg">
+            <p class="text-green-700 text-sm font-medium">Uncategorized</p>
+
+            <h2
+              class="mt-3 mb-2 text-xl font-semibold text-gray-900 leading-relaxed"
+            >
+              Five Famous & Mouthwatering Desi Dishes
+            </h2>
+
+            <div
+              class="flex justify-center items-center gap-3 text-gray-700 text-sm"
+            >
+              <span>Nov 28 ,2025</span>
+              <span>-</span>
+              <span>admin</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 6 -->
+        <div>
+          <img
+            src="images/BRINGING-HOME-TO-YOUR-DOORSTEP.jpg"
+            class="w-full h-64 object-cover rounded-t-lg"
+          />
+
+          <div class="bg-green-100 text-center p-6 rounded-b-lg">
+            <p class="text-green-700 text-sm font-medium">Uncategorized</p>
+
+            <h2
+              class="mt-3 mb-2 text-xl font-semibold text-gray-900 leading-relaxed"
+            >
+              A Voyage To The North Indian Delicacies
+            </h2>
+
+            <div
+              class="flex justify-center items-center gap-3 text-gray-700 text-sm"
+            >
+              <span>Nov 28 ,2025</span>
+              <span>-</span>
+              <span>admin</span>
+            </div>
+          </div>
+        </div>
+        <!-- CARD 7 -->
+        <div>
+          <img
+            src="images/GALLERY4.jpg"
+            class="w-full h-64 object-cover rounded-t-lg"
+          />
+
+          <div class="bg-green-100 text-center p-6 rounded-b-lg">
+            <p class="text-green-700 text-sm font-medium">Uncategorized</p>
+
+            <h2
+              class="mt-3 mb-2 text-xl font-semibold text-gray-900 leading-relaxed"
+            >
+              A Voyage To The North Indian Delicacies
+            </h2>
+
+            <div
+              class="flex justify-center items-center gap-3 text-gray-700 text-sm"
+            >
+              <span>Nov 28 ,2025</span>
+              <span>-</span>
+              <span>admin</span>
+            </div>
+          </div>
+        </div>
+        <!-- CARD 8 -->
+        <div>
+          <img
+            src="images/WhatsApp-Image-2019-12-11-at-15.37.40.jpeg"
+            class="w-full h-64 object-cover rounded-t-lg"
+          />
+
+          <div class="bg-green-100 text-center p-6 rounded-b-lg">
+            <p class="text-green-700 text-sm font-medium">Uncategorized</p>
+
+            <h2
+              class="mt-3 mb-2 text-xl font-semibold text-gray-900 leading-relaxed"
+            >
+              A Voyage To The North Indian Delicacies
+            </h2>
+
+            <div
+              class="flex justify-center items-center gap-3 text-gray-700 text-sm"
+            >
+              <span>Nov 28 ,2025</span>
+              <span>-</span>
+              <span>admin</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- footer -->
+    <section class="bg-white">
+      <footer class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Top Section -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <!-- Logo + Description -->
+          <div class="space-y-4">
+            <img src="/images/logo.jpeg" class="w-32" alt="" />
+            <p class="text-black text-lg leading-relaxed">
+              SpicyFeast delivers homestyle Veg, Non-Veg, and Hybrid ti ins
+              across the GTA. With a seasoned chef and a commitment to fresh
+              daily cooking, we’ve delivered over 50,000 meals since September
+              2024.
+            </p>
+          </div>
+
+          <!-- Useful links -->
+          <div class="flex justify-between md:justify-start md:gap-20">
+            <div>
+              <h3 class="font-bold text-green-700 mb-3 tracking-wide">
+                USEFUL LINKS
+              </h3>
+              <ul class="space-y-2 text-black font-bold">
+                <li>
+                  <a href="index.html" class="hover:text-green-600">Home</a>
+                </li>
+                <li>
+                  <a href="AboutUs.html" class="hover:text-green-600"
+                    >About Us</a
+                  >
+                </li>
+                <li>
+                  <a href="MealPlans.html" class="hover:text-green-600"
+                    >Meal Plans</a
+                  >
+                </li>
+                <li>
+                  <a href="Gallery.html" class="hover:text-green-600"
+                    >Gallery</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="font-bold text-green-700 mb-3 tracking-wide">
+                INFORMATION
+              </h3>
+              <ul class="space-y-2 text-black font-bold mt-6 md:mt-0">
+                <li>
+                  <a href="Blog.html" class="hover:text-green-600">Blog</a>
+                </li>
+                <li>
+                  <a href="PrivacyPolicy.html" class="hover:text-green-600"
+                    >Privacy Policy</a
+                  >
+                </li>
+                <li>
+                  <a href="TermsConditions.html" class="hover:text-green-600"
+                    >Terms & Condition</a
+                  >
+                </li>
+                <li>
+                  <a href="ContactUs.html" class="hover:text-green-600"
+                    >Contact Us</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Contact Us -->
+          <div>
+            <h3 class="font-bold text-green-700 mb-3 tracking-wide">
+              CONTACT US
+            </h3>
+            <ul class="space-y-3 text-black font-bold">
+              <li class="flex items-start gap-2">
+                <span>📞</span> +1 437-604-5840
+              </li>
+              <li class="flex items-start gap-2">
+                <span>✉️</span> Support@Spicyfeast.Ca
+              </li>
+              <li class="flex items-start gap-2">
+                <span>📍</span>
+                Spicy Feast 20 Lockport Avenue Etobicoke M8Z 2R7
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-b border-black my-10"></div>
+
+        <!-- Bottom Copyright -->
+        <div class="text-center text-black mt-10 text-md">
+          © 2025 All rights reserved. Design and Developed by Spicyfeast
+        </div>
+      </footer>
+    </section>
+  </body>
+</html>

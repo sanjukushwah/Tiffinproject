@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+      defer
+    ></script>
+
+    <!-- Swiper CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <!-- Google Font -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  </head>
+
+  <body class="">
+   <!-- header section -->
+     <header
+      x-data="{ open: false }"
+      class=" sticky top-0 z-50 bg-white shadow-md"
+    >
+      <div class="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+          <!-- Left: Logo -->
+          <div class="text-2xl font-bold">
+            <img
+              src="images/logo.jpeg"
+              class="h-20 rounded-md"
+              alt="logo image"
+            />
+          </div>
+
+          <!-- desktop menu-->
+          <div class="hidden md:flex items-center gap-3">
+            <!-- LOGGED-OUT LOGIN/SIGNUP BUTTONS -->
+            <ul class="hidden lg:flex space-x-8 font-semibold text-gray-900">
+              <li>
+                <a href="index.html">HOME</a>
+              </li>
+              <li><a href="AboutUs.html">ABOUT US</a></li>
+              <li><a href="MealPlan.html">MEAL PLANS</a></li>
+              <li><a href="Services.html">SERVICES</a></li>
+              <li><a href="Gallery.html">GALLERY</a></li>
+              <li><a href="Blog.html">BLOG</a></li>
+              <li><a href="ContactUs.html">CONTACT US</a></li>
+            </ul>
+          </div>
+          <div class="hidden lg:flex space-x-4">
+            <button
+              id="openLoginBtn"
+              class="bg-green-500 text-white font-semibold px-6 py-3 rounded-full"
+            >
+              Login
+            </button>
+            <button
+              id="openModalBtn"
+              class="bg-green-500 text-white font-semibold px-6 py-3 rounded-full"
+            >
+              Signup
+            </button>
+          </div>
+          <!-- Mobile Hamburger -->
+          <button
+            class="lg:hidden text-black focus:outline-none"
+            @click="open = !open"
+          >
+            <!-- Mobile Menu Button Icon -->
+            <svg
+              x-show="!open"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+
+            <!-- Close Icon -->
+            <svg
+              x-show="open"
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Dropdown Menu -->
+      <div
+        x-show="open"
+        x-transition
+        class="md:hidden bg-white border-t border-gray-300 shadow-lg px-4 py-3 space-y-3"
+      >
+        
+
+        <!-- Links -->
+        <nav class="flex flex-col space-y-4 text-black font-medium">
+          
+          <ul class="font-bold text-black mb-4">
+            <li class="mb-3"><a href="AboutUs.html">ABOUT US</a></li>
+            <li class="mb-3"><a href="MealPlan.html">MEAL PLANS</a></li>
+            <li class="mb-3"><a href="Services.html">SERVICES</a></li>
+            <li class="mb-3"><a href="Gallery.html">GALLERY</a></li>
+            <li class="mb-3"><a href="Blog.html">BLOG</a></li>
+            <li class=""><a href="ContactUs.html">CONTACT US</a></li>
+          </ul>
+        </nav>
+        <div class="flex items-center gap-2 ">
+          <button
+          id="openLoginBtn"
+            class="flex-1 bg-green-500 border border-black rounded-full px-4 py-2 font-medium "
+          >
+            Login
+          </button>
+          <button
+          id="openModalBtn"
+            class="flex-1 bg-green-500 border border-black rounded-full px-4 py-2 font-medium "
+          >
+            Signup
+          </button>
+        </div>
+      </div>
+      <!-- login Modal -->
+  <div
+    id="loginModal"
+    class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+  >
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-md relative p-6">
+      <!-- Close button -->
+      <button
+        id="closeLoginBtn"
+        class="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl"
+      >
+        ✕
+      </button>
+
+      <!-- Title -->
+      <!-- <h2 class="text-2xl text-center font-bold mb-2">Log In</h2> -->
+      <p class="text-3xl font-bold mb-4 text-center">Welcome to Spicyfeast</p>
+      <!-- <p class="text-sm text-gray-600 mb-6">
+            Please confirm your country code and enter your phone number.
+          </p> -->
+
+      <!-- Form -->
+      <form class="space-y-4">
+        <!--Email -->
+
+        <input
+          type="email"
+          placeholder="Enter your email"
+          class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+        />
+
+        <!-- Password -->
+        <input
+          type="password"
+          placeholder="Password"
+          class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+        />
+
+        <!-- Login Button -->
+        <button
+          type="submit"
+          class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 disabled:opacity-50"
+        >
+          Login
+        </button>
+        <!-- Google Button -->
+        <button
+          type="button"
+          class="w-full flex items-center justify-center gap-2 border rounded-xl py-3 hover:bg-gray-50 transition cursor-pointer"
+        >
+          <img
+            src="https://www.svgrepo.com/show/355037/google.svg"
+            alt="Google"
+            class="w-5 h-5"
+          />
+          <span class="font-medium">Continue with google</span>
+        </button>
+      </form>
+
+      <!-- Reset Password -->
+      <div class="mt-4 text-center">
+        <a href="#" class="text-teal-600 font-medium hover:underline"
+          >Reset Password</a
+        >
+      </div>
+
+      <!-- Divider -->
+      <div class="flex items-center my-4">
+        <div class="flex-1 h-px bg-gray-300"></div>
+        <span class="px-2 text-gray-500 text-sm">or</span>
+        <div class="flex-1 h-px bg-gray-300"></div>
+      </div>
+
+      <!-- Login with OTP -->
+      <!-- <button
+            class="w-full border bg-yellow-400 border-gray-400 text-black py-2 rounded-lg hover:bg-gray-100"
+          >
+            Login with OTP
+          </button> -->
+
+      <!-- Footer -->
+      <p class="text-sm text-center mt-4">
+        Don’t Have An Account?
+        <a href="#" class="text-teal-600 font-medium hover:underline"
+          >Sign Up</a
+        >
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const loginModal = document.getElementById("loginModal");
+    const openLoginBtn = document.getElementById("openLoginBtn");
+    const closeLoginBtn = document.getElementById("closeLoginBtn");
+
+    openLoginBtn.addEventListener("click", () => {
+      loginModal.classList.remove("hidden");
+    });
+
+    closeLoginBtn.addEventListener("click", () => {
+      loginModal.classList.add("hidden");
+    });
+
+    // Close when clicking outside modal
+    loginModal.addEventListener("click", (e) => {
+      if (e.target === loginModal) {
+        loginModal.classList.add("hidden");
+      }
+    });
+  </script>
+
+  <!--signup Modal -->
+  <div
+    id="signupModal"
+    class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+  >
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-md relative p-6">
+      <!-- Close button -->
+      <button
+        id="closeModalBtn"
+        class="absolute top-3 right-3 text-gray-500 hover:text-black text-2xl"
+      >
+        ✕
+      </button>
+
+      <!-- Modal Content -->
+      <!-- <h2 class="text-2xl font-semibold mb-6">Sign Up</h2> -->
+      <p class="text-3xl font-bold mb-4 text-center">Create an Account</p>
+
+      <form class="space-y-4">
+        <!-- First Name -->
+        <input
+          type="text"
+          placeholder="First name"
+          class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+        />
+
+        <!-- Last Name -->
+        <input
+          type="text"
+          placeholder="Last name"
+          class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+        />
+        <!-- phone number -->
+         <input
+          type="text"
+          placeholder="Phone number"
+          class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+        />
+
+        <!-- --Email -->
+        <input
+          type="email"
+          placeholder="Enter your email"
+          class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+        />
+
+        <!-- Password -->
+        <input
+          type="password"
+          placeholder="Password"
+          class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-teal-500"
+        />
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="w-full bg-teal-600 text-white py-2 rounded-lg hover:bg-teal-700 disabled:opacity-50"
+        >
+          Sign Up
+        </button>
+        <!-- Google Button -->
+        <button
+          type="button"
+          class="w-full flex items-center justify-center gap-2 border rounded-xl py-3 hover:bg-gray-50 transition cursor-pointer"
+        >
+          <img
+            src="https://www.svgrepo.com/show/355037/google.svg"
+            alt="Google"
+            class="w-5 h-5"
+          />
+          <span class="font-medium">Continue with google</span>
+        </button>
+      </form>
+
+      <!-- Footer -->
+      <p class="text-xs text-gray-500 mt-4 text-center">
+        By continuing you agree to our Terms of Services & Privacy Policy
+      </p>
+
+      <p class="text-sm text-center mt-3">
+        Have An Account?
+        <a href="#" class="text-teal-600 font-medium hover:underline">Login</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById("signupModal");
+    const openBtn = document.getElementById("openModalBtn");
+    const closeBtn = document.getElementById("closeModalBtn");
+
+    openBtn.addEventListener("click", () => {
+      modal.classList.remove("hidden");
+    });
+
+    closeBtn.addEventListener("click", () => {
+      modal.classList.add("hidden");
+    });
+
+    // Close when clicking outside modal
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.classList.add("hidden");
+      }
+    });
+  </script>
+    </header>
+    <!-- end header section -->
+     <!-- Image slider  -->
+     <section class="w-full h-[500px] overflow-hidden">
+  <div class="relative w-full h-full">
+
+    <!-- Swiper -->
+    <div class="swiper myTestimonialSwiper w-full h-full">
+      <div class="swiper-wrapper">
+
+        <!-- Slide 1 -->
+        <div class="swiper-slide w-full h-full">
+          
+      <img
+        src="images/GALLERY1.jpg"
+        class="absolute inset-0 w-full h-full object-cover"
+        alt="Spicyfeast"
+      />
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black/50"></div>
+
+      <!-- Text Content -->
+      <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+          Spicyfeast
+        </h1>
+
+        <h2 class="text-lg md:text-2xl mb-6">
+          Delivering fresh, homestyle Tiffins
+        </h2>
+
+        <button class="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-full text-lg font-semibold transition">
+          Order Now
+        </button>
+      </div>
+
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="swiper-slide w-full h-full">
+          <img
+        src="images/GALLERY2.jpg"
+        class="absolute inset-0 w-full h-full object-cover"
+        alt="Spicyfeast"
+      />
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black/50"></div>
+
+      <!-- Text Content -->
+      <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+          Spicyfeast
+        </h1>
+
+        <h2 class="text-lg md:text-2xl mb-6">
+          Delivering fresh, homestyle Tiffins
+        </h2>
+
+        <button class="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-full text-lg font-semibold transition">
+          Order Now
+        </button>
+      </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="swiper-slide w-full h-full">
+          <img
+        src="images/GALLERY3.jpg"
+        class="absolute inset-0 w-full h-full object-cover"
+        alt="Spicyfeast"
+      />
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black/50"></div>
+
+      <!-- Text Content -->
+      <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+          Spicyfeast
+        </h1>
+
+        <h2 class="text-lg md:text-2xl mb-6">
+          Delivering fresh, homestyle Tiffins
+        </h2>
+
+        <button class="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-full text-lg font-semibold transition">
+          Order Now
+        </button>
+      </div>
+        </div>
+        <!-- Slide 4 -->
+        <div class="swiper-slide w-full h-full">
+          <img
+        src="images/GALLERY4.jpg"
+        class="absolute inset-0 w-full h-full object-cover"
+        alt="Spicyfeast"
+      />
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black/50"></div>
+
+      <!-- Text Content -->
+      <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+          Spicyfeast
+        </h1>
+
+        <h2 class="text-lg md:text-2xl mb-6">
+          Delivering fresh, homestyle Tiffins
+        </h2>
+
+        <button class="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-full text-lg font-semibold transition">
+          Order Now
+        </button>
+      </div>
+        </div>
+        <!-- Slide 5 -->
+        <div class="swiper-slide w-full h-full">
+          <img
+        src="images/GALLERY5.jpg"
+        class="absolute inset-0 w-full h-full object-cover"
+        alt="Spicyfeast"
+      />
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black/50"></div>
+
+      <!-- Text Content -->
+      <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+          Spicyfeast
+        </h1>
+
+        <h2 class="text-lg md:text-2xl mb-6">
+          Delivering fresh, homestyle Tiffins
+        </h2>
+
+        <button class="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-full text-lg font-semibold transition">
+          Order Now
+        </button>
+      </div>
+        </div>
+        <!-- Slide 6 -->
+        <div class="swiper-slide w-full h-full">
+          <img
+        src="images/GALLERY6.jpg"
+        class="absolute inset-0 w-full h-full object-cover"
+        alt="Spicyfeast"
+      />
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black/50"></div>
+
+      <!-- Text Content -->
+      <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+          Spicyfeast
+        </h1>
+
+        <h2 class="text-lg md:text-2xl mb-6">
+          Delivering fresh, homestyle Tiffins
+        </h2>
+
+        <button class="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-full text-lg font-semibold transition">
+          Order Now
+        </button>
+      </div>
+        </div>
+        <!-- Slide 7 -->
+        <div class="swiper-slide w-full h-full">
+          <img
+        src="images/GALLERY7.jpg"
+        class="absolute inset-0 w-full h-full object-cover"
+        alt="Spicyfeast"
+      />
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black/50"></div>
+
+      <!-- Text Content -->
+      <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+          Spicyfeast
+        </h1>
+
+        <h2 class="text-lg md:text-2xl mb-6">
+          Delivering fresh, homestyle Tiffins
+        </h2>
+
+        <button class="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-full text-lg font-semibold transition">
+          Order Now
+        </button>
+      </div>
+        </div>
+        <!-- Slide 8 -->
+        <div class="swiper-slide w-full h-full">
+          <img
+        src="images/GALLERY8.jpg"
+        class="absolute inset-0 w-full h-full object-cover"
+        alt="Spicyfeast"
+      />
+
+      <!-- Overlay -->
+      <div class="absolute inset-0 bg-black/50"></div>
+
+      <!-- Text Content -->
+      <div class="relative z-10 flex flex-col items-center justify-center h-full text-center text-white px-4">
+        <h1 class="text-4xl md:text-6xl font-bold mb-4">
+          Spicyfeast
+        </h1>
+
+        <h2 class="text-lg md:text-2xl mb-6">
+          Delivering fresh, homestyle Tiffins
+        </h2>
+
+        <button class="bg-red-600 hover:bg-red-700 px-6 py-3 rounded-full text-lg font-semibold transition">
+          Order Now
+        </button>
+      </div>
+        </div>
+
+      </div>
+
+      <!-- Pagination -->
+      <div class="swiper-pagination"></div>
+
+      <!-- Navigation -->
+      <div class="swiper-button-prev !text-green-600"></div>
+      <div class="swiper-button-next !text-green-600"></div>
+    </div>
+
+  </div>
+    </section>
+
+    <!-- HERO SECTION -->
+    <section class="w-full bg-[#FFF6ec] pt-20 pb-10">
+      <div
+        class="max-w-7xl mx-auto px-4 lg:grid lg:grid-cols-2 lg:gap-10 flex flex-col-reverse"
+      >
+        <!-- LEFT CONTENT -->
+        <div class="flex flex-col justify-center mt-10 lg:mt-0">
+          <h3 class="text-green-700 font-semibold text-xl mb-4">
+            Fresh, Homestyle Tiffin Delivered Across the GTA
+          </h3>
+
+          <h1 class="text-green-800 font-extrabold text-5xl leading-tight">
+            Your Everyday Food,<br />
+            Done Right
+          </h1>
+
+          <p class="text-black text-lg mt-4 max-w-md">
+            SpicyFeast brings you the taste of home with meals made fresh every
+            day. Whether you're a student, a working professional, or a family
+            living in the GTA, we make sure your daily meals are healthy,
+            comforting, and delivered on time.
+          </p>
+          <p class="text-blcak text-lg mt-4 max-w-md">
+            We don’t believe in shortcuts. Every ti in is prepared each morning
+            using fresh ingredients and balanced spices that keep the meal light
+            and satisfying.
+          </p>
+          <p>
+            Trusted by Thousands<br />
+            Since launching on September 1st, 2024, we’ve delivered over 50,000
+            tiffins—all cooked with the same care and consistency.
+          </p>
+
+          <!-- Mobile buttons stacked, desktop inline -->
+          <!-- <div class="mt-6 flex flex-col sm:flex-row gap-4">
+            <img src="/path/googleplay.png" class="w-40 cursor-pointer" />
+            <img src="/path/appstore.png" class="w-40 cursor-pointer" />
+          </div> -->
+        </div>
+
+        <!-- RIGHT IMAGE -->
+        <div class="flex justify-center items-center">
+          <img
+            src="/images/tiffinservice.jpg"
+            class="w-full max-w-lg drop-shadow-xl rounded-lg"
+          />
+        </div>
+      </div>
+
+      <!-- Floating WhatsApp -->
+      <a
+        href="#"
+        class="fixed bottom-5 right-5 bg-green-500 p-3 rounded-full shadow-lg"
+      >
+        <img src="/images/whatsapp_popup_2011271203.png" class="w-12" />
+      </a>
+    </section>
+
+    <!-- main section -->
+    <section class="py-16 bg-white">
+      <h2
+        class="text-center text-3xl md:text-4xl font-bold text-green-700 mb-12"
+      >
+        Why Choose Spicyfeast Tiffin
+      </h2>
+
+      <div
+        class="container mx-auto px-4 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+      >
+        <!-- CARD 1 -->
+        <div
+          class="bg-[#e6e6e6] rounded-lg p-8 flex justify-between items-start"
+        >
+          <div>
+            <p class="text-xl font-semibold text-green-900">Real Home Taste</p>
+            <p>
+              Our meals are designed to taste like they were cooked in your own
+              kitchen. No heavy oil, no reheated food—just clean, fresh cooking.
+            </p>
+          </div>
+          <!-- <img
+            src="/images/GALLERY1.jpg"
+            alt=""
+            class="w-30 h-40 object-contain"
+          /> -->
+        </div>
+
+        <!-- CARD 2 -->
+        <div
+          class="bg-[#e6e6e6] rounded-lg p-8 flex justify-between items-start"
+        >
+          <div>
+            <p class="text-xl font-semibold text-green-900">
+              Six-Day Delivery with Saturday Special
+            </p>
+            <p>
+              We deliver six days a week, Monday to Saturday. Every Saturday,
+              you receive a freshly prepared special meal crafted to add extra
+              variety and taste to your plan.
+            </p>
+          </div>
+          <!-- <img
+            src="/images/GALLERY2.jpg"
+            alt=""
+            class="w-30 h-40 object-contain"
+          /> -->
+        </div>
+
+        <!-- CARD 3 -->
+        <div
+          class="bg-[#e6e6e6] rounded-lg p-8 flex justify-between items-start"
+        >
+          <div>
+            <p class="text-xl font-semibold text-green-900">Experienced Chef</p>
+            <p>
+              Your meals are prepared by a<strong>
+                professional chef with 15+ years of experience</strong
+              >
+              in Indian cuisine. Every dish is crafted with attention to ﬂavour,
+              texture, and nutrition.
+            </p>
+          </div>
+
+          <!-- <img
+            src="/images/GALLERY3.jpg"
+            alt=""
+            class="w-30 h-40 object-contain"
+          /> -->
+        </div>
+
+        <!-- CARD 4 -->
+        <div
+          class="bg-[#e6e6e6] rounded-lg p-8 flex justify-between items-start"
+        >
+          <div>
+            <p class="text-xl font-semibold text-green-900">
+              Daily Fresh Cooking
+            </p>
+            <p>
+              Food is prepared the same day, never stored overnight. We keep
+              your meals safe, hygienic, and reliable.
+            </p>
+          </div>
+          <!-- <img
+            src="/images/GALLERY4.jpg"
+            alt=""
+            class="w-30 h-40 object-contain"
+          /> -->
+        </div>
+
+        <!-- CARD 5 -->
+        <div
+          class="bg-[#e6e6e6] rounded-lg p-8 flex justify-between items-start"
+        >
+          <div>
+            <p class="text-xl font-semibold text-green-900">
+              Reliable Delivery
+            </p>
+            <p>
+              We deliver across key GTA regions with punctual timing and proper
+              packaging.
+            </p>
+          </div>
+          <!-- <img
+            src="/images/GALLERY5.jpg"
+            alt=""
+            class="w-30 h-40 object-contain"
+          /> -->
+        </div>
+
+        <!-- CARD 6 -->
+        <div
+          class="bg-[#e6e6e6] rounded-lg p-8 flex justify-between items-start"
+        >
+          <div>
+            <p class="text-xl font-semibold text-green-900">Honest Pricing</p>
+            <p>No hidden charges. No random fees. You pay for what you get.</p>
+          </div>
+          <!-- <img
+            src="/images/GALLERY6.jpg"
+            alt=""
+            class="w-30 h-40 object-contain"
+          /> -->
+        </div>
+      </div>
+    </section>
+    <!-- feature section -->
+    <section class="py-16 bg-[#fff6ec]">
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- Section Title -->
+        <h2
+          class="text-3xl md:text-4xl font-bold text-green-600 text-center mb-12"
+        >
+          Features
+        </h2>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Card 1 -->
+          <div
+            class="bg-white shadow-md rounded-xl border-2 border[e6e6e6] p-6 hover:shadow-lg transition"
+          >
+            <h3 class="text-2xl font-semibold text-gray-900 mb-2">
+              Healthy Homestyle Food
+            </h3>
+            <p class="text-black">
+              Tiffins made with minimal oil, fresh produce, and balanced spices.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div
+            class="bg-white shadow-md rounded-xl border-2 border[e6e6e6] p-6 hover:shadow-lg transition"
+          >
+            <h3 class="text-2xl font-semibold text-gray-900 mb-2">
+              Weekly & Monthly Plans
+            </h3>
+            <p class="text-black">
+              Simple, clear plans that match your schedule and budget.
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div
+            class="bg-white shadow-md rounded-xl border-2 border[e6e6e6] p-6 hover:shadow-lg transition"
+          >
+            <h3 class="text-2xl font-semibold text-gray-900 mb-2">
+              Customizable Options
+            </h3>
+            <p class="text-black">
+              Change your meal type. Limited pause tiffins. Switch preferences.
+              We keep things flexible.
+            </p>
+          </div>
+
+          <!-- Card 4 -->
+          <div
+            class="bg-white shadow-md rounded-xl border-2 border[e6e6e6] p-6 hover:shadow-lg transition"
+          >
+            <h3 class="text-2xl font-semibold text-gray-900 mb-2">
+              Same-Day Fresh Cooking
+            </h3>
+            <p class="text-black">
+              We cook every morning so your food arrives warm and tasty.
+            </p>
+          </div>
+
+          <!-- Card 5 -->
+          <div
+            class="bg-white shadow-md rounded-xl border-2 border[e6e6e6] p-6 hover:shadow-lg transition"
+          >
+            <h3 class="text-2xl font-semibold text-gray-900 mb-2">
+              Trusted Hygiene
+            </h3>
+            <p class="text-black">
+              Clean kitchen practices, certified chef handling, and controlled
+              preparation environment.
+            </p>
+          </div>
+
+          <!-- Card 6 -->
+          <div
+            class="bg-white shadow-md rounded-xl border-2 border[e6e6e6] p-6 hover:shadow-lg transition"
+          >
+            <h3 class="text-2xl font-semibold text-gray-900 mb-2">
+              GTA-Wide Delivery
+            </h3>
+            <p class="text-black">
+              Serving Brampton, Toronto, Etobicoke, Mississauga, Oakville,
+              Scarborough, North York and East York.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- our meal plan -->
+
+    <section class="bg-[#fff6ec] py-16">
+      <div class="max-w-7xl mx-auto px-4">
+        <!-- Heading -->
+        <h2
+          class="text-center text-3xl md:text-4xl font-bold text-green-700 mb-12"
+        >
+          OUR MEAL PLANS
+        </h2>
+
+        <!-- Cards Grid -->
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10"
+        >
+          <!-- Card 1 -->
+          <div class="flex flex-col items-center">
+            
+          </div>
+
+          <!-- Card 2 -->
+          <div class="flex flex-col items-center">
+            <a href="MealPlan.html">
+              <img
+              src="/images/GALLERY5.jpg"
+              alt="Veg Meal"
+              class="rounded-xl shadow-md hover:scale-105 transition duration-300"
+            />
+            </a>
+            <h3 class="mt-4 text-lg font-semibold text-gray-700">
+              Veg
+            </h3>
+            
+          </div>
+
+          <!-- Card 3 -->
+          <div class="flex flex-col items-center">
+            <a href="MealPlan.html">
+              <img
+              src="/images/GALLERY4.jpg"
+              alt="Micro Meal"
+              class="rounded-xl shadow-md hover:scale-105 transition duration-300"
+            />
+            </a>
+             <h3 class="mt-4 text-lg font-semibold text-gray-700">Non Veg</h3>
+            
+          </div>
+          <!-- Card 3 -->
+          <div class="flex flex-col items-center">
+            <a href="MealPlan.html">
+              <img
+              src="/images/GALLERY3.jpg"
+              alt="Micro Meal"
+              class="rounded-xl shadow-md hover:scale-105 transition duration-300"
+            />
+            </a>
+             <h3 class="mt-4 text-lg font-semibold text-gray-700">Hybrid(Veg+ Non Veg)</h3>
+            
+          </div>
+          <!-- Card 3 -->
+          <div class="flex flex-col items-center">
+            
+          </div>
+        </div> 
+    </section>
+
+
+    <!-- fresh healthy -->
+    <section class="bg-white py-16 px-4">
+      <div class="max-w-5xl mx-auto text-center">
+        <!-- Heading -->
+        <h2 class="text-3xl md:text-4xl font-bold text-green-700 leading-snug">
+          100 % Fresh Heathy and Delicious Food
+        </h2>
+
+        <!-- Sub-heading -->
+        <p class="mt-3 text-black text-lg font-medium">
+          Food like home, Away from home..
+        </p>
+
+        <!-- Paragraph -->
+        <p class="mt-6 text-black text-lg justify-center leading-relaxed">
+          Spicyfeast tiffin has been serving 100% Fresh and Authentic Indian Food
+          for over a decade in the city of Canada. Unlike other tiffin and
+          catering services we give you multiple options to choose your own
+          meals as we have got a wide range of menu selection. You can order
+          according to your needs and desires as there is a choice between Jain
+          food, Vegetarian food and Non vegetarian food. Moreover you can
+          customise your own meal according to your cravings and get rid of the
+          same old boring food.
+        </p>
+      </div>
+
+      <!-- Illustration image -->
+      <div class="max-w-4xl mx-auto mt-12 flex justify-center">
+        <img
+          src="images/Group-1513-1.png"
+          alt="Kitchen Illustration"
+          class="w-full h-auto object-contain"
+        />
+      </div>
+    </section>
+
+    <!-- testimonial -->
+    
+
+    <section class="py-16 bg-[#FFF8F0]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Header -->
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">What Our Customers Say</h2>
+        
+        <div class="flex justify-center items-center mt-6">
+          <div class="flex text-yellow-400 text-2xl">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <span class="ml-3 text-2xl font-semibold text-gray-900">4.8</span>
+          <span class="ml-3 text-lg text-gray-600">(based on 250 reviews)</span>
+        </div>
+      </div>
+
+      <!-- Responsive Grid / Carousel-like on mobile -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Review Card 1 -->
+        <div class="bg-gray-50 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+          <div class="flex items-center mb-4">
+            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Reviewer" class="w-12 h-12 rounded-full mr-4">
+            <div>
+              <h4 class="font-semibold text-gray-900">Sarah Johnson</h4>
+              <div class="flex text-yellow-400 text-sm">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-700 italic">"Amazing service! The food was delicious and delivered on time. Highly recommend this meal plan to everyone."</p>
+          <p class="text-sm text-gray-500 mt-4">Verified Google Review • 2 weeks ago</p>
+        </div>
+
+        <!-- Review Card 2 -->
+        <div class="bg-gray-50 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+          <div class="flex items-center mb-4">
+            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Reviewer" class="w-12 h-12 rounded-full mr-4">
+            <div>
+              <h4 class="font-semibold text-gray-900">Michael Chen</h4>
+              <div class="flex text-yellow-400 text-sm">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-700 italic">"Best decision for busy weeks. Healthy, tasty meals every day. Customer support is excellent too!"</p>
+          <p class="text-sm text-gray-500 mt-4">Verified Google Review • 1 month ago</p>
+        </div>
+
+        <!-- Review Card 3 -->
+        <div class="bg-gray-50 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+          <div class="flex items-center mb-4">
+            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Reviewer" class="w-12 h-12 rounded-full mr-4">
+            <div>
+              <h4 class="font-semibold text-gray-900">Emily Rodriguez</h4>
+              <div class="flex text-yellow-400 text-sm">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
+            </div>
+          </div>
+          <p class="text-gray-700 italic">"Great variety and portion sizes. Only wish there were more vegan options, but overall very satisfied."</p>
+          <p class="text-sm text-gray-500 mt-4">Verified Google Review • 3 weeks ago</p>
+        </div>
+
+        <!-- Add more cards as needed -->
+      </div>
+
+      <!-- Call to Action -->
+      <div class="text-center mt-12">
+        <a href="https://www.google.com/search?q=your+business+name+reviews" target="_blank"
+           class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition">
+          See All Reviews on Google
+          <i class="ml-2 fas fa-external-link-alt"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+    <!-- footer -->
+    <section class="bg-white">
+      <footer class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Top Section -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <!-- Logo + Description -->
+          <div class="space-y-4">
+            <img src="/images/logo.jpeg" class="w-32" alt="" />
+            <p class="text-black text-lg leading-relaxed">
+              SpicyFeast delivers homestyle Veg, Non-Veg, and Hybrid ti ins
+              across the GTA. With a seasoned chef and a commitment to fresh
+              daily cooking, we’ve delivered over 50,000 meals since September
+              2024.
+            </p>
+          </div>
+
+          <!-- Useful links -->
+          <div class="flex justify-between md:justify-start md:gap-20">
+            <div>
+              <h3 class="font-bold text-green-700 mb-3 tracking-wide">
+                USEFUL LINKS
+              </h3>
+              <ul class="space-y-2 text-black font-bold">
+                <li>
+                  <a href="index.html" class="hover:text-green-600">Home</a>
+                </li>
+                <li>
+                  <a href="AboutUs.html" class="hover:text-green-600"
+                    >About Us</a
+                  >
+                </li>
+                <li>
+                  <a href="MealPlans.html" class="hover:text-green-600"
+                    >Meal Plans</a
+                  >
+                </li>
+                <li>
+                  <a href="Gallery.html" class="hover:text-green-600"
+                    >Gallery</a
+                  >
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 class="font-bold text-green-700 mb-3 tracking-wide">
+                INFORMATION
+              </h3>
+              <ul class="space-y-2 text-black font-bold mt-6 md:mt-0">
+                <li>
+                  <a href="Blog.html" class="hover:text-green-600">Blog</a>
+                </li>
+                <li>
+                  <a href="PrivacyPolicy.html" class="hover:text-green-600"
+                    >Privacy Policy</a
+                  >
+                </li>
+                <li>
+                  <a href="TermsConditions.html" class="hover:text-green-600"
+                    >Terms & Condition</a
+                  >
+                </li>
+                <li>
+                  <a href="ContactUs.html" class="hover:text-green-600"
+                    >Contact Us</a
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Contact Us -->
+          <div>
+            <h3 class="font-bold text-green-700 mb-3 tracking-wide">
+              CONTACT US
+            </h3>
+            <ul class="space-y-3 text-black font-bold">
+              <li class="flex items-start gap-2">
+                <span>📞</span> +1 437-604-5840
+              </li>
+              <li class="flex items-start gap-2">
+                <span>✉️</span> Support@Spicyfeast.Ca
+              </li>
+              <li class="flex items-start gap-2">
+                <span>📍</span>
+                Spicy Feast 20 Lockport Avenue Etobicoke M8Z 2R7
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="border-b border-black my-10"></div>
+
+        <!-- Bottom Copyright -->
+        <div class="text-center text-black mt-10 text-md">
+          © 2025 All rights reserved. Design and Developed by Spicyfeast
+        </div>
+      </footer>
+    </section>
+
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+      var swiper = new Swiper(".myTestimonialSwiper", {
+        loop: true,
+        centeredSlides: true,
+        autoplay: {
+          delay: 3000,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      });
+    </script>
+
+    <!-- swiper -->
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        loop: true,
+        spaceBetween: 30,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      });
+    </script>
+    <script>
+      // Mobile Menu Toggle
+      document.getElementById("menuBtn").addEventListener("click", () => {
+        document.getElementById("mobileMenu").classList.toggle("hidden");
+      });
+    </script>
+  </body>
+</html>
+
+
